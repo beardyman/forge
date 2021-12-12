@@ -1,0 +1,14 @@
+{
+  "name": "forge-plugins",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generalSQL.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pg-promise": "^10.11.1"
+  }
+}
