@@ -1,6 +1,15 @@
 
 
 ```shell
+# initializes forge's state tables, will call `createSchema` 
+forge initialize
+
+# initializes forge's state tables with existing migrations
+forge initialize --existing
+
+# initializes forge's state tables with existing migrations up to (and including) a specific version
+forge initialize --existing <version>
+
 # migrate to latest
 forge migrate
 
@@ -21,6 +30,9 @@ forge rollback -y
 
 ```shell
 # configurations
-/db-migrations
-/plugin-file
+migrationsDirectory
+migrationTable
+migrationPlugin
+logLevel
+schema
 ```

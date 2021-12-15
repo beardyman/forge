@@ -2,14 +2,22 @@
   "name": "forge",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "cli.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "forge-db": "bin/forge-cli.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.7.2",
+    "chalk": "^5.0.0",
+    "find-up": "^6.2.0",
+    "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "pino": "^7.5.1"
   }

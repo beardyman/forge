@@ -1,30 +1,13 @@
 
-const Sql = require('./generalSQL');
-const pgp = require('pg-promise')();
+import Sql from './generalSQL.js';
+import pgp from 'pg-promise';
 const pg = pgp();
 
+export default class Postgres extends Sql {
+  constructor(config) {
+    super(config);
 
-class Postgres extends Sql {
-  constructor() {
-    super();
-
-    this.db = pg;
+    this.db = pg({database: 'postgres'});
   }
-
-  createTable(tablecolumnMap) {
-
-  }
-
-  insert(columnValueMap) {
-
-  }
-
-  remove(id) {
-
-  }
-
-  getMigrationState() {
-    return this.db.query(`select * from ${this.migrationTable}`)
-  }
-
 }
+
