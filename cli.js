@@ -1,5 +1,4 @@
 
-import chalk from 'chalk';
 import _ from 'lodash';
 import log from './lib/logger.js';
 import {
@@ -12,17 +11,16 @@ import { loadPluginFile } from "./lib/model/plugin.js";
 import actionTypes from "./lib/actionTypes.js";
 
 const supportedCommands = {
-  initialize: async (argv) => {
+  initialize: async () => {
+    // todo: handle a non-idempotent 'create' case
+
     // attempt to initialize the forge table
     await initializeMigrationTable();
   },
 
-  migrate: async (argv) => {
-    const version = argv._[1];
-
-    // todo: handle a non-idempotent 'create' case
-    // attempt to initialize the forge table
-    await initializeMigrationTable();
+  migrate: async ({version}) => {
+    // attempt to initialize state table if needed
+    await supportedCommands.initialize();
 
     const migrationsToBeExecuted = await getMigrationFilesBeforeVersion(version);
 
@@ -36,10 +34,8 @@ const supportedCommands = {
     }
   },
 
-  rollback: async (argv) => {
+  rollback: async ({version}) => {
     // todo: handle a non-initialized case
-
-    const version = argv._[1];
 
     const rollbacksToBeExecuted = _.reverse(_.sortBy(await getMigrationsAfterButIncludingVersion(version), 'version'));
     if (rollbacksToBeExecuted.length > 0) {
@@ -55,27 +51,23 @@ const supportedCommands = {
 
 const main = async (argv) => {
   const command = argv._[0];
+  const version = argv._[1]; // optional version
 
   if(!_.keys(supportedCommands).includes(command)) {
-    console.log(chalk.red(`Command ${command} is unrecognized.`));
-    console.log(chalk.blueBright(`Acceptable commands are: `));
-    console.log(chalk.blueBright(`\t\t migrate `));
-    console.log(chalk.blueBright(`\t\t rollback`));
-    console.log(`See README.md for more info or run 'man forge'`);
+    log.error({supportedCommands}, `command '${command}' is unrecognized.`);
     process.exit(1);
   }
 
-  // validate plugin file
-
   await loadPluginFile();
+  // todo: validate plugin file
 
-  supportedCommands[command](argv).then((results) => {
+  supportedCommands[command]({version}).then((results) => {
     log.info(`${_.upperFirst(command)} command completed successfully.`);
     process.exit(0);
   }).catch((error, err) => {
     log.error({error: error.toString()}, 'There has been an issue during the migration');
     process.exit(1);
   });
-}
+};
 
 export default main;

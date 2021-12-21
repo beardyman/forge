@@ -1,6 +1,6 @@
 
 import _ from 'lodash';
-import Plugin from '../lib/plugin.js';
+import Plugin from './plugin.js';
 
 class GeneralSQL extends Plugin {
 
@@ -9,14 +9,14 @@ class GeneralSQL extends Plugin {
 
     this.schema = config.schema;
     this.forgeMigrationTable = config.migrationTable;
-    this.db = { query: ()=>{
+    this.db = { query: () => {
       throw new Error('Forge Plugin Error - `this.db` must have a query function');
     }};
   }
 
   #createColumnDefinitions(tableColumnMap) {
     return  _.map(tableColumnMap, (type, field)=>{
-      return `${field} ${type}`
+      return `${field} ${type}`;
     }).join(',\n');
   }
 
@@ -42,7 +42,7 @@ class GeneralSQL extends Plugin {
 
   insert(columnValueMap) {
     const {columns, values} = this.#createColumnValues(columnValueMap);
-    const query = `INSERT INTO ${this.schema}.${this.forgeMigrationTable} (${columns.join(', ')}) VALUES (${values.map((v)=>`'${v}'`).join(', ')});`
+    const query = `INSERT INTO ${this.schema}.${this.forgeMigrationTable} (${columns.join(', ')}) VALUES (${values.map((v)=>`'${v}'`).join(', ')});`;
     return this.db.query(query);
   }
 

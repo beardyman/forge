@@ -4,21 +4,42 @@
   "description": "",
   "main": "cli.js",
   "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "bin": {
     "forge-db": "bin/forge-cli.js"
+  },
+  "scripts": {
+    "lint": "eslint . --fix",
+    "test": "npm run test:unit",
+    "test:unit": "FCI_TEST_TYPE=unit npm run test:run",
+    "test:func": "FCI_TEST_TYPE=func npm run test:run",
+    "test:run": "c8 --all --reporter=lcov --reporter=text-summary --report-dir=tests/reports/$FCI_TEST_TYPE mocha --loader=esmock tests/$FCI_TEST_TYPE/**/*.spec.js",
+    "cov:unit": "FCI_TEST_TYPE=unit npm run cov:run",
+    "cov:func": "FCI_TEST_TYPE=func npm run cov:run",
+    "cov:run": "open tests/reports/$FCI_TEST_TYPE/lcov-report/index.html"
+  },
+  "mocha": {
+    "recursive": true
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.7.2",
-    "chalk": "^5.0.0",
     "find-up": "^6.2.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
-    "pino": "^7.5.1"
+    "pino": "^7.5.1",
+    "prompt": "^1.2.0"
+  },
+  "devDependencies": {
+    "c8": "^7.10.0",
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^8.5.0",
+    "eslint-plugin-mocha": "^10.0.3",
+    "esmock": "^1.7.2",
+    "husky": "^7.0.4",
+    "mocha": "^9.1.3",
+    "sinon": "^12.0.1"
   }
 }

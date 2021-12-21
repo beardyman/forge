@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:mocha/recommended"
+  ],
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest"
+  },
+  "plugins": [
+    "mocha"
+  ],
+  "rules": {
+    "semi": "error"
+  },
+  "overrides": [
+    {
+      "files": [
+        "tests/**/*.spec.js"
+      ],
+      "globals": {
+        "expect": "writeable",
+        "esmock": "writeable",
+        "sinon": "writeable"
+      },
+      "rules": {
+
+      }
+    }
+  ]
+}
