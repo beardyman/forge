@@ -61,10 +61,10 @@ const main = async (argv) => {
   await loadPluginFile();
   // todo: validate plugin file
 
-  supportedCommands[command]({version}).then((results) => {
+  supportedCommands[command]({version}).then(() => {
     log.info(`${_.upperFirst(command)} command completed successfully.`);
     process.exit(0);
-  }).catch((error, err) => {
+  }).catch((error) => {
     log.error({error: error.toString()}, 'There has been an issue during the migration');
     process.exit(1);
   });

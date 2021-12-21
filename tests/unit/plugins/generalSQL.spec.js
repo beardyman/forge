@@ -1,6 +1,4 @@
 
-import _ from 'lodash';
-
 describe('General SQL interface plugin', function() {
   let plugin;
 
@@ -13,10 +11,8 @@ describe('General SQL interface plugin', function() {
   });
 
   it('should setup some config settings on `this`', async function() {
-
-
-    expect(_.isArray(files)).to.equal(true);
-    expect(files.length).to.equal(0);
+    expect(plugin.schema).to.equal('mySchema');
+    expect(plugin.migrationTable).to.equal('migs');
   });
 
 });
