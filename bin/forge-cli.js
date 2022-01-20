@@ -5,7 +5,8 @@ import cli from '../cli.js';
 
 const argv = min(process.argv.slice(2), {
   aliases: {
-    force: 'f'
+    force: 'f',
+    version: 'v'
   }
 });
 cli(argv);

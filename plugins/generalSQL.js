@@ -8,7 +8,7 @@ class GeneralSQL extends Plugin {
     super(config);
 
     this.schema = config.schema;
-    this.forgeMigrationTable = config.migrationTable;
+    this.fQTable = `${config.schema}.${config.migrationTable}`;
     this.db = { query: () => {
       throw new Error('Forge Plugin Error - `this.db` must have a query function');
     }};
@@ -36,23 +36,23 @@ class GeneralSQL extends Plugin {
   createTable(tableColumnMap) {
     const columnDefinitions = this.#createColumnDefinitions(tableColumnMap);
 
-    const query = `CREATE TABLE IF NOT EXISTS ${this.schema}.${this.forgeMigrationTable} (${columnDefinitions});`;
+    const query = `CREATE TABLE IF NOT EXISTS ${this.fQTable} (${columnDefinitions});`;
     return this.db.query(query);
   }
 
   insert(columnValueMap) {
     const {columns, values} = this.#createColumnValues(columnValueMap);
-    const query = `INSERT INTO ${this.schema}.${this.forgeMigrationTable} (${columns.join(', ')}) VALUES (${values.map((v)=>`'${v}'`).join(', ')});`;
+    const query = `INSERT INTO ${this.fQTable} (${columns.join(', ')}) VALUES (${values.map((v)=>`'${v}'`).join(', ')});`;
     return this.db.query(query);
   }
 
   remove(columnValueMap) {
-    const query = `DELETE FROM ${this.schema}.${this.forgeMigrationTable} where version = '${columnValueMap.version}' `;
+    const query = `DELETE FROM ${this.fQTable} where version = '${columnValueMap.version}' `;
     return this.db.query(query);
   }
 
   getMigrationState() {
-    return this.db.query(`select * from ${this.schema}.${this.forgeMigrationTable}`);
+    return this.db.query(`select * from ${this.fQTable}`);
   }
 }
 export default GeneralSQL;

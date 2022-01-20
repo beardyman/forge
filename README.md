@@ -48,13 +48,13 @@ forge initialize
 forge migrate
 
 # migrate to a specific version
-forge migrate <version>
+forge migrate --version <version>
 
 # rollback to the previous version
 forge rollback
 
 # rollback to a specific version
-forge rollback <version>
+forge rollback --version <version>
 ```
 
 TODO:
@@ -63,7 +63,7 @@ TODO:
 forge initialize --existing
 
 # initializes forge's state tables with existing migrations up to (and including) a specific version
-forge initialize --existing <version>
+forge initialize --existing --version <version>
 
 # skip validation
 forge rollback -f | --force
