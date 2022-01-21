@@ -17,15 +17,18 @@ const main = async (argv) => {
 
     // need to initialize logger after loading config since it relies on config for logLevel
     initializeLogger();
-    log.debug('logger initialized');
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  }
 
+
+  try {
     // validate command
     validateCommands(command);
 
-
     await loadPluginFile();
     // todo: validate plugin file
-
 
     await supportedCommands[command]({version}).then(() => {
       log.info(`${_.upperFirst(command)} command completed successfully.`);
