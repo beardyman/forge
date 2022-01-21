@@ -1,9 +1,9 @@
 
 import _ from 'lodash';
-import log from './lib/logger.js';
+import log, {initializeLogger} from './lib/logger.js';
 import { loadPluginFile } from "./lib/model/plugin.js";
 import { loadConfig } from "./lib/config.js";
-import supportedCommands from './lib/commands.js';
+import supportedCommands, {validateCommands} from './lib/commands.js';
 
 
 const main = async (argv) => {
@@ -11,26 +11,32 @@ const main = async (argv) => {
   const name = argv._[1]; // optional name
   let version = argv.version; // optional version
 
-  // validate commands
-  if(!_.keys(supportedCommands).includes(command)) {
-    log.error({supportedCommands}, `command '${command}' is unrecognized.`);
+  try {
+    // load and validate config
+    await loadConfig(name);
+
+    // need to initialize logger after loading config since it relies on config for logLevel
+    initializeLogger();
+
+    // validate command
+    validateCommands(command);
+
+
+    await loadPluginFile();
+    // todo: validate plugin file
+
+
+    await supportedCommands[command]({version}).then(() => {
+      log.info(`${_.upperFirst(command)} command completed successfully.`);
+      process.exit(0);
+    }).catch((error) => {
+      log.error({error: error.toString()}, 'There has been an issue during the migration');
+      process.exit(1);
+    });
+  } catch (e) {
+    log.error(e);
     process.exit(1);
   }
-
-  // load and validate config
-  await loadConfig(name);
-
-
-  await loadPluginFile();
-  // todo: validate plugin file
-
-  await supportedCommands[command]({version}).then(() => {
-    log.info(`${_.upperFirst(command)} command completed successfully.`);
-    process.exit(0);
-  }).catch((error) => {
-    log.error({error: error.toString()}, 'There has been an issue during the migration');
-    process.exit(1);
-  });
 };
 
 export default main;
