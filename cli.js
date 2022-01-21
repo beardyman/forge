@@ -1,9 +1,9 @@
 
 import _ from 'lodash';
-import log, {initializeLogger} from './lib/logger.js';
+import { log, initializeLogger } from './lib/logger.js';
 import { loadPluginFile } from "./lib/model/plugin.js";
 import { loadConfig } from "./lib/config.js";
-import supportedCommands, {validateCommands} from './lib/commands.js';
+import supportedCommands, { validateCommands } from './lib/commands.js';
 
 
 const main = async (argv) => {
@@ -17,6 +17,7 @@ const main = async (argv) => {
 
     // need to initialize logger after loading config since it relies on config for logLevel
     initializeLogger();
+    log.debug('logger initialized');
 
     // validate command
     validateCommands(command);
