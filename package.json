@@ -24,12 +24,10 @@
   "author": "Jordan Nornhold",
   "license": "ISC",
   "dependencies": {
-    "bluebird": "^3.7.2",
     "find-up": "^6.2.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
-    "pino": "^7.6.3",
-    "prompt": "^1.2.1"
+    "pino": "^7.6.3"
   },
   "devDependencies": {
     "c8": "^7.11.0",
