@@ -1,5 +1,6 @@
 
 import _ from 'lodash';
+import '../../bootstrap.js';
 
 describe('Migrations Model', function() {
   let model, fs;

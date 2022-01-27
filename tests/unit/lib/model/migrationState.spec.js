@@ -1,4 +1,6 @@
 
+import '../../bootstrap.js';
+
 describe('Migration State Model', function() {
   let model, plugin;
 

@@ -1,5 +1,6 @@
 
 import _ from 'lodash';
+import '../../bootstrap.js';
 
 describe('Plugin Model and Base Plugin', function() {
   let model;

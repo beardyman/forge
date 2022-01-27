@@ -3,8 +3,6 @@ import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import sinon from'sinon';
 import esmock from 'esmock';
-
-
 chai.use(chaiAsPromised);
 
 // set testing tools globally so we don't have to import them everywhere
@@ -12,3 +10,8 @@ chai.use(chaiAsPromised);
 global.expect = chai.expect;
 global.sinon = sinon;
 global.esmock = esmock;
+
+export const mochaGlobalSetup = () => {
+
+};
+

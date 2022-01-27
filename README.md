@@ -29,7 +29,7 @@ wants to use.  Technically, a user could use a file or store the state in s3 if 
 run SQL (or whatever), why can't I do that manually?  Short story is, you can. However, the point of this tool is 
 to make it easy to manage state across multiple environments for repeatable deployments. This makes it easy to 
 deploy your schema with your code.  You can run `forge` with your deployment to deploy database changes alongside code.
-This allows you to easliy rollout or rollback database changes to match the state of your deployed code.
+This allows you to easily rollout or rollback database changes to match the state of your deployed code.
 
 ## How do I use it?
 ### Setup a plugin
@@ -37,8 +37,6 @@ This is easier than it sounds. Forge requires a plugin to manage its own state t
 This creates an interface for `forge` to be able to create and manage tables for managing its own state.
 
 #### Plugin requirements
-
-
 
 ```shell
 # initializes forge's state tables, will call `createSchema` 

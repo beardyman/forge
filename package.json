@@ -7,18 +7,25 @@
   "bin": {
     "forge": "bin/forge-cli.js"
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "lint": "eslint . --fix",
     "test": "npm run test:unit",
-    "test:unit": "FCI_TEST_TYPE=unit npm run test:run",
-    "test:func": "FCI_TEST_TYPE=func npm run test:run",
-    "test:run": "c8 --all --reporter=lcov --reporter=text-summary --report-dir=tests/reports/$FCI_TEST_TYPE mocha --loader=esmock tests/$FCI_TEST_TYPE/**/*.spec.js",
+    "test:unit": "FCI_TEST_TYPE=unit npm run test:run -- --watch --parallel",
+    "test:func": "FCI_TEST_TYPE=func npm run test:run -- --watch --parallel",
+    "test:unitcov": "FCI_TEST_TYPE=unit npm run test:covrun",
+    "test:funccov": "FCI_TEST_TYPE=func npm run test:covrun",
+    "test:covrun": "c8 --all --reporter=lcov --reporter=text-summary --report-dir=tests/reports/$FCI_TEST_TYPE npm run test:run",
+    "test:run": "mocha --loader=esmock tests/$FCI_TEST_TYPE",
     "cov:unit": "FCI_TEST_TYPE=unit npm run cov:run",
     "cov:func": "FCI_TEST_TYPE=func npm run cov:run",
     "cov:run": "open tests/reports/$FCI_TEST_TYPE/lcov-report/index.html"
   },
   "mocha": {
-    "recursive": true
+    "recursive": true,
+    "extension": ".spec.js"
   },
   "keywords": [],
   "author": "Jordan Nornhold",
@@ -27,6 +34,7 @@
     "find-up": "^6.2.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
+    "n": "^8.0.2",
     "pino": "^7.6.3"
   },
   "devDependencies": {
