@@ -9,8 +9,8 @@ describe('Config', function() {
     _.map(configs, (value, key)=>{
       _.set(jsonConfig, `forge.${name && key !== 'logLevel' ? `${name}.`:''}${key}`, value);
     });
-    return jsonConfig
-  }
+    return jsonConfig;
+  };
 
   beforeEach(async function() {
     findUp = sinon.stub().resolves('somePath');
@@ -25,13 +25,13 @@ describe('Config', function() {
     });
   });
 
-  describe ('test helper function', ()=>{
+  describe ('test helper function', function() {
 
-    it('should set values in the base object when theres no name provided', ()=>{
+    it('should set values in the base object when theres no name provided', function() {
       const testConfig = {
         logLevel: 'low',
         schema: 'woots'
-      }
+      };
       expect(configSetter(testConfig)).to.deep.equal({
         forge:{
           logLevel: 'low',
@@ -40,12 +40,12 @@ describe('Config', function() {
         }});
     });
 
-    it('should set values in a named config', ()=>{
+    it('should set values in a named config', function() {
       const testConfig = {
         logLevel: 'low',
         pluginFile: 'pluggs',
         schema: 'woots'
-      }
+      };
       jsonConfig = {};
       expect(configSetter(testConfig, 'shaweeetConfig')).to.deep.equal({
         forge:{
@@ -99,9 +99,9 @@ describe('Config', function() {
     });
   });
 
-  describe('named configs', ()=> {
+  describe('named configs', function() {
 
-    beforeEach(()=>{
+    beforeEach(function() {
       jsonConfig = {};
       jsonConfig = configSetter({logLevel: 'debug', right: 'one', pluginFile: 'pluggs', schema: 'dopeSchema'}, 'right');
       jsonConfig = configSetter({other: 'config'}, 'wrong');
