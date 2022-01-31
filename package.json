@@ -13,8 +13,8 @@
   "scripts": {
     "lint": "eslint . --fix",
     "test": "npm run test:unit",
-    "test:unit": "FCI_TEST_TYPE=unit npm run test:run -- --watch --parallel",
-    "test:func": "FCI_TEST_TYPE=func npm run test:run -- --watch --parallel",
+    "test:unit": "FCI_TEST_TYPE=unit npm run test:covrun --parallel",
+    "test:func": "FCI_TEST_TYPE=func npm run test:covrun --parallel",
     "test:unitcov": "FCI_TEST_TYPE=unit npm run test:covrun",
     "test:funccov": "FCI_TEST_TYPE=func npm run test:covrun",
     "test:covrun": "c8 --all --reporter=lcov --reporter=text-summary --report-dir=tests/reports/$FCI_TEST_TYPE npm run test:run",
@@ -41,6 +41,7 @@
     "c8": "^7.11.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
+    "dirty-chai": "^2.0.1",
     "eslint": "^8.7.0",
     "eslint-plugin-mocha": "^10.0.3",
     "esmock": "^1.7.2",

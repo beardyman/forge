@@ -14,8 +14,8 @@ describe('Migration State Model', function() {
     };
 
     model = await esmock('../../../../lib/model/migrationState.js', {
-      '../../../../lib/config': {schema: 'nimbus'},
-      '../../../../lib/logger': {info: sinon.stub()},
+      '../../../../lib/config': { config: {schema: 'nimbus'}},
+      '../../../../lib/logger': { log: {debug: sinon.stub(), info: sinon.stub()}},
       '../../../../lib/model/plugin': {default: sinon.stub().returns(plugin)}
     });
   });

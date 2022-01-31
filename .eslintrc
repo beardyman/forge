@@ -15,7 +15,9 @@
     "mocha"
   ],
   "rules": {
-    "semi": "error"
+    "semi": "error",
+    "quotes": ["error", "single"],
+    "quote-props": ["error", "as-needed"]
   },
   "overrides": [
     {

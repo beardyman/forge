@@ -1,8 +1,8 @@
 
 import _ from 'lodash';
 import { log, initializeLogger } from './lib/logger.js';
-import { loadPluginFile } from "./lib/model/plugin.js";
-import { loadConfig } from "./lib/config.js";
+import { loadPluginFile } from './lib/model/plugin.js';
+import { loadConfig } from './lib/config.js';
 import supportedCommands, { validateCommands } from './lib/commands.js';
 
 
