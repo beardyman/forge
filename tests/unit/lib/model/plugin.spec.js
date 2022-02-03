@@ -7,15 +7,15 @@ describe.skip('Plugin Model and Base Plugin', function() {
   let model, findUp/*, plugin*/;
 
   before(async function() {
-    findUp = sinon.stub().resolves('../../plugins/plugin.js');
+    findUp = sinon.stub().resolves('../../plugins/pluginInterface.js');
 
     // plugin = sinon.stub();
 
-    model = await esmock('../../../../lib/model/plugin.js', {
+    model = await esmock('../../../../lib/model/pluginInterface.js', {
       '../../../../lib/config': {config: {my: 'config'}},
-      path: {resolve: sinon.stub().returns('../../plugins/plugin.js')},
+      path: {resolve: sinon.stub().returns('../../plugins/pluginInterface.js')},
       'find-up': {findUp},
-      // '../../../../plugins/plugin.js': {default: plugin}
+      // '../../../../plugins/pluginInterface.js': {default: plugin}
     });
   });
 

@@ -15,9 +15,13 @@
     "mocha"
   ],
   "rules": {
-    "semi": "error",
+    "max-len": ["error", {
+      "code": 150,
+      "tabWidth": 2
+    }],
     "quotes": ["error", "single"],
-    "quote-props": ["error", "as-needed"]
+    "quote-props": ["error", "as-needed"],
+    "semi": "error"
   },
   "overrides": [
     {

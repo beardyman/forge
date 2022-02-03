@@ -1,11 +1,11 @@
 
 import _ from 'lodash';
-import Plugin from './plugin.js';
+import PluginInterface from './pluginInterface.js';
 
 /**
  * This Plugin uses Postgres flavored SQL syntax, however it will likely work for other
  */
-class GeneralSQL extends Plugin {
+class GeneralSQL extends PluginInterface {
   constructor(config){
     super(config);
 

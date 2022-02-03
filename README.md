@@ -4,14 +4,15 @@ A utility for deploying migrations for changing system state.
 ---
 Migrations are generally database schema alterations or static data updates but can be anything that 
 is able to be executed via javascript. The common use case (and the reason this lib was written) is for database
-schema migrations, however at its core this library just keeps track of state for files that are run so it can be 
+schema migrations, however at its core this library just keeps track of state for files that are run, so it can be 
 used to migrate the state of anything. File state, database state, infrastructure state; it all depends on the 
 migrations that you create.
 
 ## Getting Started
 1. Create a plugin
-2. Configure `forge` to point to that plugin
-3. Run `forge migrate`
+2. Create migrations
+3. Configure `forge` to point to that plugin and migrations
+4. Run `forge migrate`
 
 ## Why?
 So many alternative migration tools (flyway, knex.js) are written with specific database support and they 
@@ -38,10 +39,15 @@ This creates an interface for `forge` to be able to create and manage tables for
 
 #### Plugin requirements
 
-```shell
-# initializes forge's state tables, will call `createSchema` 
-forge initialize
 
+### Create a migrations
+
+
+### Configuration
+
+
+### Run migrate or rollback
+```shell
 # migrate to latest
 forge migrate
 
@@ -56,28 +62,14 @@ forge rollback --version <version>
 ```
 
 TODO:
-* ```shell
-# initializes forge's state tables with existing migrations
-forge initialize --existing
+
+```shell
+# initializes forge's state tables with existing migrations 
+forge initialize
 
 # initializes forge's state tables with existing migrations up to (and including) a specific version
-forge initialize --existing --version <version>
+forge initialize --version <version>
 
 # skip validation
 forge rollback -f | --force
-```
-
-* Validate user input
-* Validate config
-* Validate plugin
-* Check for existence of schema / tables
-
-
-```shell
-# configurations
-migrationsDirectory
-migrationTable
-migrationPlugin
-logLevel
-schema
 ```

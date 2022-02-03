@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { log, initializeLogger } from './lib/logger.js';
 import { loadPluginFile } from './lib/model/plugin.js';
 import { loadConfig } from './lib/config.js';
-import supportedCommands, { validateCommands } from './lib/commands.js';
+import supportedCommands, { validateCommands } from './controllers/commands.js';
 
 
 const main = async (argv) => {
@@ -30,6 +30,7 @@ const main = async (argv) => {
     await loadPluginFile();
     // todo: validate plugin file
 
+    // route to the correct command code
     await supportedCommands[command]({version}).then(() => {
       log.info(`${_.upperFirst(command)} command completed successfully.`);
       process.exit(0);

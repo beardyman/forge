@@ -5,9 +5,9 @@ import {
   getMigrationsAfterButIncludingVersion,
   initializeMigrationTable,
   processTasks
-} from './migration.js';
-import { log } from './logger.js';
-import actionTypes from './actionTypes.js';
+} from '../lib/processActions.js';
+import { log } from '../lib/logger.js';
+import actionTypes from '../lib/actionTypes.js';
 import _ from 'lodash';
 
 export function validateCommands (command) {
@@ -18,7 +18,7 @@ export function validateCommands (command) {
 
 const supportedCommands = {
   initialize: async () => {
-    // todo: handle a non-idempotent 'create' case
+
 
     // attempt to initialize the forge table
     await initializeMigrationTable();

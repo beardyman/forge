@@ -7,7 +7,7 @@ describe('General SQL interface plugin', function() {
 
   beforeEach(async function() {
     const Plugin = await esmock('../../../plugins/generalSQL.js', {
-      '../../../plugins/plugin.js': sinon.stub()
+      '../../../plugins/pluginInterface.js': sinon.stub()
     });
 
     plugin = new Plugin({schema: 'mySchema', migrationTable: 'migs'});
