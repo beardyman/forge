@@ -8,7 +8,7 @@ class PluginInterface {
   }
 
   createSchema(schema) {
-    throw new Error(`'createSchema' must be defined by the forge plugin. Schema ${schema} will be passed to it.`);
+    throw new Error(`'createSchema' must be defined by the forge plugin. Schema '${schema}' will be passed to it.`);
   }
 
   createTable(tableColumnMap) {

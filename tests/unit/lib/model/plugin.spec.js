@@ -3,19 +3,18 @@ import _ from 'lodash';
 import '../../bootstrap.js';
 
 // eslint-disable-next-line mocha/no-skipped-tests
-describe.skip('Plugin Model and Base Plugin', function() {
-  let model, findUp/*, plugin*/;
+describe('Plugin Model and Base Plugin', function() {
+  let model, findUp;
 
   before(async function() {
-    findUp = sinon.stub().resolves('../../plugins/pluginInterface.js');
+    const pathToPlugin = '../../../MockMigrationStatePlugin.js';
 
-    // plugin = sinon.stub();
+    findUp = sinon.stub().resolves(pathToPlugin);
 
-    model = await esmock('../../../../lib/model/pluginInterface.js', {
+    model = await esmock('../../../../lib/model/plugin.js', {
       '../../../../lib/config': {config: {my: 'config'}},
-      path: {resolve: sinon.stub().returns('../../plugins/pluginInterface.js')},
+      path: {resolve: sinon.stub().returns(pathToPlugin)},
       'find-up': {findUp},
-      // '../../../../plugins/pluginInterface.js': {default: plugin}
     });
   });
 

@@ -9,4 +9,16 @@ const argv = min(process.argv.slice(2), {
     version: 'v'
   }
 });
-cli(argv);
+
+await cli(argv);
+process.exit(0);
+
+process.on('uncaughtException', (error) => {
+  console.error(error);
+  process.exit(255);
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error(reason);
+  process.exit(255);
+});

@@ -2,31 +2,27 @@
 
 import {
   getMigrationFilesBeforeVersion,
-  getMigrationsAfterButIncludingVersion,
+  getMigrationsAfterVersion,
   initializeMigrationTable,
-  processTasks
+  processTasks,
+  recordMigrations
 } from '../lib/processActions.js';
 import { log } from '../lib/logger.js';
 import actionTypes from '../lib/actionTypes.js';
 import _ from 'lodash';
 
-export function validateCommands (command) {
-  if (!_.keys(supportedCommands).includes(command)) {
-    throw new Error({supportedCommands}, `command '${command}' is unrecognized.`);
-  }
-}
-
 const supportedCommands = {
-  initialize: async () => {
-
-
+  initialize: async ({version}) => {
     // attempt to initialize the forge table
     await initializeMigrationTable();
+
+    const migrationsToBeInserted = await getMigrationFilesBeforeVersion(version);
+    await recordMigrations(migrationsToBeInserted);
   },
 
   migrate: async ({version}) => {
     // attempt to initialize state table if needed
-    await supportedCommands.initialize();
+    await initializeMigrationTable();
 
     const migrationsToBeExecuted = await getMigrationFilesBeforeVersion(version);
 
@@ -43,7 +39,7 @@ const supportedCommands = {
   rollback: async ({version}) => {
     // todo: handle a non-initialized case
 
-    const rollbacksToBeExecuted = _.reverse(_.sortBy(await getMigrationsAfterButIncludingVersion(version), 'version'));
+    const rollbacksToBeExecuted = _.reverse(_.sortBy(await getMigrationsAfterVersion(version), 'version'));
     if (rollbacksToBeExecuted.length > 0) {
       log.debug({rollbacksToBeExecuted});
       // attempt to get current state ... if none, assume it needs to be initialized later.
@@ -54,5 +50,13 @@ const supportedCommands = {
     }
   }
 };
+
+export function validateCommands (command) {
+  if (!_.keys(supportedCommands).includes(command)) {
+    const error = new Error(`command '${command}' is unrecognized.`);
+    error.meta = {supportedCommands};
+    throw error;
+  }
+}
 
 export default supportedCommands;
