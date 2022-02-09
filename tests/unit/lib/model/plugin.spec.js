@@ -3,7 +3,7 @@ import _ from 'lodash';
 import '../../bootstrap.js';
 
 // eslint-disable-next-line mocha/no-skipped-tests
-describe('Plugin Model and Base Plugin', function() {
+describe.skip('Plugin Model and Base Plugin', function() {
   let model, findUp;
 
   before(async function() {

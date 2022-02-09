@@ -1,7 +1,7 @@
 
 
 import {
-  getMigrationFilesBeforeVersion,
+  getMigrationsBeforeVersion,
   getMigrationsAfterVersion,
   initializeMigrationTable,
   processTasks,
@@ -16,7 +16,7 @@ const supportedCommands = {
     // attempt to initialize the forge table
     await initializeMigrationTable();
 
-    const migrationsToBeInserted = await getMigrationFilesBeforeVersion(version);
+    const migrationsToBeInserted = await getMigrationsBeforeVersion(version);
     await recordMigrations(migrationsToBeInserted);
   },
 
@@ -24,7 +24,7 @@ const supportedCommands = {
     // attempt to initialize state table if needed
     await initializeMigrationTable();
 
-    const migrationsToBeExecuted = await getMigrationFilesBeforeVersion(version);
+    const migrationsToBeExecuted = await getMigrationsBeforeVersion(version);
 
     if (migrationsToBeExecuted.length > 0) {
       log.debug({migrationsToBeExecuted});
