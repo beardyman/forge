@@ -77,7 +77,7 @@ describe('Migrations Model', function() {
     });
   });
 
-  describe.only('loadAction', function() {
+  describe('loadAction', function() {
     const config = {migrationsDirectory: '../../tests/mocks/migrations'};
     let testMigration;
 
@@ -85,12 +85,16 @@ describe('Migrations Model', function() {
       testMigration = await import('../../../mocks/migrations/v1_a.js');
     });
 
+    afterEach(async function() {
+      await testMigration.resetMocks();
+    });
+
     it('might work', async function() {
       path.resolve.returns(`${config.migrationsDirectory}/${'v1_a.js'}`);
       const action = await model.loadAction(config, 'v1_a.js', actionTypes.migrate);
       expect(path.resolve.callCount).to.equal(1);
-      testMigration.migrate(); // triggering action to show its the same action
-      expect(action.callCount).to.equal(2);
+      testMigration.migrate(); // triggering action to show it's the same action
+      expect(action.callCount).to.equal(1);
     });
   });
 });
