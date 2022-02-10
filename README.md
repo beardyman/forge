@@ -1,7 +1,10 @@
-
 # Forge
 A utility for deploying migrations for changing system state. 
 ---
+
+![Tests](https://github.com/beardyman/forge/actions/workflows/tests/badge.svg)
+
+
 Migrations are generally database schema alterations or static data updates but can be anything that 
 is able to be executed via javascript. The common use case (and the reason this lib was written) is for database
 schema migrations, however at its core this library just keeps track of state for files that are run, so it can be 
