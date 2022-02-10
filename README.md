@@ -2,7 +2,8 @@
 A utility for deploying migrations for changing system state. 
 ---
 
-![Tests](https://github.com/beardyman/forge/actions/workflows/tests/badge.svg)
+![Unit Tests](https://github.com/beardyman/forge/actions/workflows/unit-tests/badge.svg)
+![Functional Tests](https://github.com/beardyman/forge/actions/workflows/func-tests/badge.svg)
 
 
 Migrations are generally database schema alterations or static data updates but can be anything that 
