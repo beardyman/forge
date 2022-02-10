@@ -48,6 +48,12 @@ This creates an interface for `forge` to be able to create and manage tables for
 
 ### Run migrate or rollback
 ```shell
+# record existing migrations
+forge initialize
+
+# record existing migrations prior to and including a specific version
+forge initialize --version <version>
+
 # migrate to latest
 forge migrate
 
@@ -57,19 +63,6 @@ forge migrate --version <version>
 # rollback to the previous version
 forge rollback
 
-# rollback to a specific version
+# rollback to a specific version (sets the state to the version specified)
 forge rollback --version <version>
-```
-
-TODO:
-
-```shell
-# initializes forge's state tables with existing migrations 
-forge initialize
-
-# initializes forge's state tables with existing migrations up to (and including) a specific version
-forge initialize --version <version>
-
-# skip validation
-forge rollback -f | --force
 ```
