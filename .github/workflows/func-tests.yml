@@ -1,4 +1,4 @@
-name: Forge Functional Tests
+name: Functional Tests
 
 on:
   push:
