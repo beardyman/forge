@@ -2,7 +2,7 @@
   "name": "forge",
   "version": "1.0.0",
   "description": "A utility for deploying migrations for changing system state.",
-  "main": "cli.js",
+  "main": "index.js",
   "type": "module",
   "bin": {
     "forge": "bin/forge-cli.js"

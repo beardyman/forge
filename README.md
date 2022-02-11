@@ -74,7 +74,7 @@ If using a SQL backend, there is also a General SQL interface that includes all 
 should work for most SQL databases.  It requires that a constructor be made assigning a database interface to `this.db`.  The database interface must 
 have a function named `query`. An example of its implementation creating a connection to a local postgres instance:
 ```js
-import GeneralSQLInterface from 'forge';
+import { GeneralSQLInterface } from 'forge';
 
 import pgp from 'pg-promise';
 const pgDb = pgp();
