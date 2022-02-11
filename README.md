@@ -124,6 +124,17 @@ The default format can be used if there's only one set of migrations in the proj
 
 The only **required** property of a configuration is `"migrationStatePluginFile"`.
 
+Config defaults:
+```json 
+{
+  "logLevel": "info",
+  "migrationsDirectory": "migrations",
+  "migrationTable": "forge_migrations",
+  "schema": "public"
+}
+```
+
+Example configuration: 
 ```json
 {
   "forge": {
@@ -136,7 +147,7 @@ The only **required** property of a configuration is `"migrationStatePluginFile"
 ```
 
 The other configuration format is for named configurations.  This can be useful if your project requires two separate migrations.  Names are arbitrary 
-and there are no limits to how many named migrations you can have.  
+and there are no limits to how many named migrations you can have.  The defaults above apply to each named configuration.
 ```json
 {
   "forge": {
