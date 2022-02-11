@@ -11,7 +11,7 @@ class PluginInterface {
     throw new Error(`'createSchema' must be defined by the forge plugin. Schema '${schema}' will be passed to it.`);
   }
 
-  createTable(tableColumnMap) {
+  createTable(tableName, tableColumnMap) {
     throw new Error(`'createTable' must be defined by the forge plugin. A hash with the keys ${Object.keys(tableColumnMap).join(', ')
     } will be passed to it`);
   }

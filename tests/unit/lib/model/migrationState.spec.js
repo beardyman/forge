@@ -14,7 +14,7 @@ describe('Migration State Model', function() {
     };
 
     model = await esmock('../../../../lib/model/migrationState.js', {
-      '../../../../lib/config': { config: {schema: 'nimbus'}},
+      '../../../../lib/config': { config: {schema: 'nimbus', migrationTable: 'tabs'}},
       '../../../../lib/logger': { log: {debug: sinon.stub(), info: sinon.stub()}},
       '../../../../lib/model/plugin': {default: sinon.stub().returns(plugin)}
     });
@@ -25,7 +25,8 @@ describe('Migration State Model', function() {
     expect(plugin.createSchema.callCount).to.equal(1);
     expect(plugin.createSchema.args[0][0]).to.equal('nimbus');
     expect(plugin.createTable.callCount).to.equal(1);
-    expect(plugin.createTable.args[0][0]).to.deep.equal({
+    expect(plugin.createTable.args[0][0]).to.equal('tabs');
+    expect(plugin.createTable.args[0][1]).to.deep.equal({
       version: 'text',
       name: 'text',
       filename: 'text'

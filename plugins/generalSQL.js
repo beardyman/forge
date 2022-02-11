@@ -35,7 +35,7 @@ class GeneralSQL extends PluginInterface {
     return this.db.query(query);
   }
 
-  createTable(tableColumnMap) {
+  createTable(tableName, tableColumnMap) {
     const columnDefinitions = this.#createColumnDefinitions(tableColumnMap);
 
     const query = `CREATE TABLE IF NOT EXISTS ${this.fQTable} (${columnDefinitions});`;
