@@ -59,7 +59,10 @@ must implement the following 5 methods:
   * Removes a record from the state table during a rollback.
   * `version` is the version be removed.
 * `getMigrationState()`
-  * Returns all records from the state table.  Expected format is an array of objects: ```json [{ "version": "1", "name": "a migration", "filename": "v1_a_migration.js"}]```
+  * Returns all records from the state table.  Expected format is an array of objects: 
+  ```json 
+  [{ "version": "1", "name": "a migration", "filename": "v1_a_migration.js"}]
+  ```
 
 An interface can be extended if `forge` is imported into the plugin file.  This will ensure appropriate methods are implemented.
 ```js
