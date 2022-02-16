@@ -22,7 +22,7 @@ describe('Config', function() {
   beforeEach(async function() {
     findUp = sinon.stub().resolves('somePath');
 
-    jsonConfig = {forge: {migrationStatePluginFile: 'someFile'}};
+    jsonConfig = {forge: {migrationStatePlugin: 'someFile'}};
     jsonRequire = sinon.stub().returns(jsonConfig);
     const moduleLoader = {createRequire: sinon.stub().returns(jsonRequire)};
 
@@ -42,7 +42,7 @@ describe('Config', function() {
       expect(configSetter(testConfig)).to.deep.equal({
         forge:{
           logLevel: 'low',
-          migrationStatePluginFile: 'someFile',
+          migrationStatePlugin: 'someFile',
           schema: 'woots'
         }});
     });
@@ -50,7 +50,7 @@ describe('Config', function() {
     it('should set values in a named config', function() {
       const testConfig = {
         logLevel: 'low',
-        migrationStatePluginFile: 'pluggs',
+        migrationStatePlugin: 'pluggs',
         schema: 'woots'
       };
       jsonConfig = {};
@@ -58,7 +58,7 @@ describe('Config', function() {
         forge:{
           logLevel: 'low',
           shaweeetConfig: {
-            migrationStatePluginFile: 'pluggs',
+            migrationStatePlugin: 'pluggs',
             schema: 'woots'
           }
         }});
@@ -73,7 +73,7 @@ describe('Config', function() {
   it('should throw an error when required properties aren\'t specified', async function () {
     jsonRequire.returns({});
     await expect(lib.loadConfig()).to.be.rejected().then((error)=>{
-      expect(error.message).to.equal('Forge configuration is missing required properties (migrationStatePluginFile)');
+      expect(error.message).to.equal('Forge configuration is missing required properties (migrationStatePlugin)');
     });
   });
 
@@ -85,7 +85,7 @@ describe('Config', function() {
       logLevel: 'info',
       migrationTable: 'forge_migrations',
       migrationsDirectory: 'migrations',
-      migrationStatePluginFile: 'someFile',
+      migrationStatePlugin: 'someFile',
       schema: 'public'
     });
   });
@@ -101,7 +101,7 @@ describe('Config', function() {
       logLevel: 'debug',
       migrationTable: 'forge_migrations',
       migrationsDirectory: 'migrations',
-      migrationStatePluginFile: 'someFile',
+      migrationStatePlugin: 'someFile',
       schema: 'dopeSchema'
     });
   });
@@ -110,7 +110,7 @@ describe('Config', function() {
 
     beforeEach(function() {
       jsonConfig = {};
-      jsonConfig = configSetter({logLevel: 'debug', right: 'one', migrationStatePluginFile: 'pluggs', schema: 'dopeSchema'}, 'right');
+      jsonConfig = configSetter({logLevel: 'debug', right: 'one', migrationStatePlugin: 'pluggs', schema: 'dopeSchema'}, 'right');
       jsonConfig = configSetter({other: 'config'}, 'wrong');
       jsonRequire.returns(jsonConfig);
     });
@@ -124,7 +124,7 @@ describe('Config', function() {
     it('should validate properties of a named config', async function () {
       await expect(lib.loadConfig('wrong')).to.be.rejected().then((error)=>{
         expect(error.message).to.equal('Forge configuration is missing required properties for the "wrong" ' +
-          'migration configuration (migrationStatePluginFile)');
+          'migration configuration (migrationStatePlugin)');
       });
     });
 
@@ -136,7 +136,7 @@ describe('Config', function() {
         logLevel: 'debug',
         migrationTable: 'forge_migrations',
         migrationsDirectory: 'migrations',
-        migrationStatePluginFile: 'pluggs',
+        migrationStatePlugin: 'pluggs',
         right: 'one',
         schema: 'dopeSchema'
       });
