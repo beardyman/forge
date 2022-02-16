@@ -125,7 +125,7 @@ export const rollback = (config) => {
 Forge's configuration should be set in the project's `package.json` file under the property `"forge"`. The configuration can be in two different formats.
 The default format can be used if there's only one set of migrations in the project.
 
-The only **required** property of a configuration is `"migrationStatePluginFile"`.
+The only **required** property of a configuration is `"migrationStatePlugin"`.
 
 Config defaults:
 ```json 
@@ -141,7 +141,7 @@ Example configuration:
 ```json
 {
   "forge": {
-    "migrationStatePluginFile": "./schema/postgres.js",
+    "migrationStatePlugin": "./schema/postgres.js",
     "migrationsDirectory": "./schema",
     "schema": "test_migrations",
     "logLevel": "debug"
@@ -156,12 +156,12 @@ and there are no limits to how many named migrations you can have.  The defaults
   "forge": {
     "logLevel": "debug",
     "db": {
-      "migrationStatePluginFile": "./schema/postgres.js",
+      "migrationStatePlugin": "./schema/postgres.js",
       "migrationsDirectory": "./schema",
       "schema": "test_migrations"
     },
     "infra": {
-      "migrationStatePluginFile": "./infra/aws.js",
+      "migrationStatePlugin": "./infra/aws.js",
       "migrationsDirectory": "./infra",
       "schema": "infra_migrations"
     }
