@@ -36,7 +36,6 @@
     "find-up": "^6.2.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
-    "n": "^8.0.2",
     "pino": "^7.6.3"
   },
   "devDependencies": {
@@ -54,7 +53,11 @@
   "forge": {
     "comment": "This is only used for functional tests",
     "logLevel": "fatal",
-    "migrationStatePluginFile": "tests/mocks/MockMigrationStatePlugin.js",
-    "migrationsDirectory": "tests/mocks/migrations"
+    "migrationStatePlugin": "tests/mocks/MockMigrationStatePlugin.js",
+    "migrationsDirectory": "tests/mocks/migrations",
+    "nodeModule": {
+      "migrationStatePlugin": "mock-forge-plugin",
+      "migrationsDirectory": "tests/mocks/migrations"
+    }
   }
 }
