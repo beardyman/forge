@@ -1,3 +1,4 @@
 node_modules
 **/node_modules
 tests/reports/
+examples/state

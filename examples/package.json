@@ -1,0 +1,36 @@
+{
+  "name": "forge-examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "comment": "A real migration script would look like the following",
+    "realMigratePg": "forge migrate pg",
+    "migratePg": "../bin/forge-cli.js migrate pg",
+    "rollbackPg": "../bin/forge-cli.js rollback pg",
+    "migrateFile": "../bin/forge-cli.js migrate file",
+    "rollbackFile": "../bin/forge-cli.js rollback file",
+    "cleanupFile": "rm -rf state"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "forge": {
+    "logLevel": "debug",
+    "file": {
+      "migrationStatePlugin": "plugins/fileStatePlugin.js",
+      "migrationsDirectory": "./migrations",
+      "schema": "state"
+    },
+    "pg": {
+      "migrationStatePlugin": "plugins/postgresStatePlugin.js",
+      "migrationsDirectory": "./migrations",
+      "schema": "forge_example"
+    }
+  },
+  "dependencies": {
+    "node-postgres": "^0.6.2",
+    "pg": "^8.7.3"
+  }
+}
