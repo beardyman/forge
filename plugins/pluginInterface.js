@@ -1,14 +1,17 @@
 /**
- * @description Defines the required functions for managing the forge state table.
+ * Defines the required interface for a Forge State Plugin. Any state management plugin that forge uses must
+ * implement these functions to these specifications to successfully work with Forge.
+ *
  * @interface
  */
 class PluginInterface {
 
   /**
-   * @description A refined config from the "forge" stanza in `package.json` will be passed to the constructor.  In the case of
+   * A refined config from the "forge" stanza in `package.json` will be passed to the constructor.  In the case of
    * a basic config, the entire config will be passed; in the case of a named migration, the named config will be
    * merged with basic properties (like "logLevel") and passed.  Any defaults set by forge will also be passed in
    * this config.
+   *
    * @param {object} config - the forge runtime config from user configuration merged with forge's defaults.
    */
   constructor(config) {
@@ -27,7 +30,8 @@ class PluginInterface {
   }
 
   /**
-   * @description Creates the state table using the columnDefinitions.
+   * Creates the state table using the columnDefinitions.
+   *
    * @param {string} tableName  - The table name from forge's config.
    * @param {object[]} columnDefinitions - A list of column definitions with name and datatype values
    * @param {string} columnDefinitions[].name - The name of a column
@@ -40,7 +44,8 @@ class PluginInterface {
   }
 
   /**
-   * @description Adds to the state for single migration that is run.  In a database, this would generally be inserting a row into a table.
+   * Adds to the state for single migration that is run.  In a database, this would generally be inserting a row into a table.
+   *
    * @param {object} columnValues - Mapping of column names to values
    * @returns {Promise<undefined>} - Resolves when complete
    */
