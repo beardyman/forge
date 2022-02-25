@@ -11,6 +11,8 @@
     "node": ">=14.0.0"
   },
   "scripts": {
+    "docs": "jsdoc --configure .jsdoc.json",
+    "docs:open": "open docs/index.html",
     "lint": "eslint . --fix",
     "lint:ci": "eslint .",
     "test": "npm run test:unit && npm run test:func",
@@ -43,10 +45,12 @@
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "dirty-chai": "^2.0.1",
+    "docdash": "^1.2.0",
     "eslint": "^8.7.0",
     "eslint-plugin-mocha": "^10.0.3",
     "esmock": "^1.7.2",
     "husky": "^7.0.4",
+    "jsdoc": "^3.6.10",
     "mocha": "^9.1.4",
     "sinon": "^12.0.1"
   },
