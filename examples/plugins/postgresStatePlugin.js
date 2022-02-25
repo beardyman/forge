@@ -50,7 +50,7 @@ export default class PostgresStatePlugin extends PluginInterface {
 
   remove(columnValueMap) {
     const query = `DELETE FROM ${this.fQTable} where version = '${columnValueMap.version}' `;
-    return this.db.query(query);
+    return this.db.query(query, );
   }
 
   getMigrationState() {
