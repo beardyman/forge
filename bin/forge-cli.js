@@ -3,22 +3,17 @@
 import min from 'minimist';
 import cli from '../cli.js';
 
-const argv = min(process.argv.slice(2), {
-  aliases: {
-    force: 'f',
-    version: 'v'
-  }
-});
+const argv = min(process.argv.slice(2));
 
 await cli(argv);
 process.exit(0);
 
 process.on('uncaughtException', (error) => {
-  console.error(error);
+  console.fatal(error);
   process.exit(255);
 });
 
 process.on('unhandledRejection', (reason) => {
-  console.error(reason);
+  console.fatal(reason);
   process.exit(255);
 });
