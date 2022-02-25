@@ -9,7 +9,7 @@ class PluginInterface {
    * a basic config, the entire config will be passed; in the case of a named migration, the named config will be
    * merged with basic properties (like "logLevel") and passed.  Any defaults set by forge will also be passed in
    * this config.
-   * @param config {Object}
+   * @param {object} config - the forge runtime config from user configuration merged with forge's defaults.
    */
   constructor(config) {
     this.config = config;
@@ -19,7 +19,7 @@ class PluginInterface {
    * Creates the space to make the state table.  In a database this is generally called a schema.
    * This function should do anything needed to later create a table.
    *
-   * @param schema {string} - The name of the schema from the config.
+   * @param {string} schema - The name of the schema from the config.
    * @returns {Promise<undefined>} - Resolves when complete
    */
   createSchema(schema) {
@@ -28,10 +28,10 @@ class PluginInterface {
 
   /**
    * @description Creates the state table using the columnDefinitions.
-   * @param tableName {string} - The table name from forge's config.
-   * @param columnDefinitions {Object[]} - A list of column definitions with name and datatype values
-   * @param columnDefinitions[].name - The name of a column
-   * @param columnDefinitions[].datatype - The datatype of the column
+   * @param {string} tableName  - The table name from forge's config.
+   * @param {object[]} columnDefinitions - A list of column definitions with name and datatype values
+   * @param {string} columnDefinitions[].name - The name of a column
+   * @param {string} columnDefinitions[].datatype - The datatype of the column
    * @returns {Promise<undefined>} - Resolves when complete
    */
   createTable(tableName, columnDefinitions) {
@@ -41,7 +41,7 @@ class PluginInterface {
 
   /**
    * @description Adds to the state for single migration that is run.  In a database, this would generally be inserting a row into a table.
-   * @param columnValues {Object} - Mapping of column names to values
+   * @param {object} columnValues - Mapping of column names to values
    * @returns {Promise<undefined>} - Resolves when complete
    */
   insert(columnValues) {
@@ -52,7 +52,7 @@ class PluginInterface {
   /**
    * Removes from the state for a single rollback that is run.  In a database, this would generally be a delete statement for a single row.
    *
-   * @param columnValues {Object} - The column values for the migration to be removed.
+   * @param {object} columnValues  - The column values for the migration to be removed.
    * @returns {Promise<undefined>} - Resolves when complete
    */
   remove(columnValues) {
@@ -62,7 +62,7 @@ class PluginInterface {
   /**
    * Gets the current state of migrations as a collection. All previously run migrations should be returned.
    *
-   * @param columns {string[]} - The property names that forge expects to be in the objects of the collection.
+   * @param {string[]} columns  - The property names that forge expects to be in the objects of the collection.
    *        This corresponds to the table columns that were passed in `createTable` and `insert`.
    * @returns {Promise<object[]>} - The entire current state as an array of objects matching the column names as object properties
    */
