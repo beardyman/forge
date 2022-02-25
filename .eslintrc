@@ -25,6 +25,15 @@
   },
   "overrides": [
     {
+      "files": ["plugins/pluginInterface.js"],
+      "plugins": ["jsdoc"],
+      "extends": ["plugin:jsdoc/recommended"],
+      "rules": {
+        "no-undef": "off",
+        "no-unused-vars": "off"
+      }
+    },
+    {
       "files": [
         "tests/**/*.spec.js"
       ],

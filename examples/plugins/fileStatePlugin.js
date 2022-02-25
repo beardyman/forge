@@ -74,15 +74,13 @@ export default class FileStatePlugin extends PluginInterface {
   }
 
   /**
-   * Adds a new line for a run migration
-   *
-   * @param columnValueMap
-   * @returns {Promise<void>}
+   * Adds a new line when running a migration
+   * @inheritDoc
    */
-  async insert(columnValueMap) {
+  async insert(columnValues) {
     // get the values in sort order
     const row = this.tableColumnOrder.reduce((row, column)=>{
-      row.push(columnValueMap[column]);
+      row.push(columnValues[column]);
       return row;
     }, []);
     const fileHandle = await this.getFileForAppending();
