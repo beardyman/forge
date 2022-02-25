@@ -1,5 +1,9 @@
+/**
+ * This plugin is meant to be an example of keeping state in a file. This method can be used when
+ * there is no database available.
+ */
 
-// in a real project this would be:
+// In a real project this would be:
 // import { PluginInterface } from 'forge';
 import { PluginInterface } from '../../index.js';
 
@@ -7,25 +11,8 @@ import fs from 'fs/promises';
 import { EOL } from 'os';
 
 /**
- * Helper for omitting unwanted values
- *
- * A value or a function returning an expression can be passed.
- *
- * @param array
- * @param value
- * @returns {*}
+ * @typedef {Array<Object>} Collection
  */
-function without(array, value) {
-  return array.reduce((items, item) => {
-    if ((value instanceof Function) && !value(item)){
-      items.push(item);
-    }
-    else if (!(value instanceof Function) && item !== value) {
-      items.push(item);
-    }
-    return items;
-  }, []);
-}
 
 /**
  * This plugin uses a file to keep track of the state of the application
@@ -118,10 +105,10 @@ export default class FileStatePlugin extends PluginInterface {
   }
 
   /**
-   * Returns the file as JSON
+   * Returns the file as an array of objects for each line.
    *
-   * @param columns
-   * @returns {Promise<*>}
+   * @param columns {Array} - Column names so that the file can be parsed in the right order
+   * @returns {Promise<Collection>} - The file as an array of objects
    */
   async getMigrationState(columns) {
     const lines = await this.getFileLines();
@@ -139,4 +126,25 @@ export default class FileStatePlugin extends PluginInterface {
       return states;
     }, []);
   }
+}
+
+/**
+ * Helper for omitting unwanted values.
+ * A value or a function returning an expression can be passed.
+ *
+ * @param array {Array} - An array of values to remove values from
+ * @param value {*|Function} - Any value to compare against to be removed or a function that returns a
+ *        truthy value for items to be removed.
+ * @returns {Array} - An array without any instances of the value passed
+ */
+function without(array, value) {
+  return array.reduce((items, item) => {
+    if ((value instanceof Function) && !value(item)){
+      items.push(item);
+    }
+    else if (!(value instanceof Function) && item !== value) {
+      items.push(item);
+    }
+    return items;
+  }, []);
 }
