@@ -25,7 +25,7 @@ class PluginInterface {
    * @param {string} schema - The name of the schema from the config.
    * @returns {Promise<undefined>} - Resolves when complete
    */
-  createSchema(schema) {
+  async createSchema(schema) {
     throw new Error(`'createSchema' must be defined by the forge plugin. Schema '${schema}' will be passed to it.`);
   }
 
@@ -38,7 +38,7 @@ class PluginInterface {
    * @param {string} columnDefinitions[].datatype - The datatype of the column
    * @returns {Promise<undefined>} - Resolves when complete
    */
-  createTable(tableName, columnDefinitions) {
+  async createTable(tableName, columnDefinitions) {
     throw new Error(`'createTable' must be defined by the forge plugin. A hash with the keys ${Object.keys(tableColumnMap).join(', ')
     } will be passed to it`);
   }
@@ -49,7 +49,7 @@ class PluginInterface {
    * @param {object} columnValues - Mapping of column names to values
    * @returns {Promise<undefined>} - Resolves when complete
    */
-  insert(columnValues) {
+  async insert(columnValues) {
     throw new Error(`'insert' must be defined by the forge plugin. A hash of column names to values (keys:${Object.keys(columnValueMap).join(', ')
     }; values:${Object.values(columnValueMap).join(', ')}) will be passed ot it.`);
   }
@@ -60,18 +60,18 @@ class PluginInterface {
    * @param {object} columnValues  - The column values for the migration to be removed.
    * @returns {Promise<undefined>} - Resolves when complete
    */
-  remove(columnValues) {
+  async remove(columnValues) {
     throw new Error(`'remove' must be defined by the forge plugin. The version ${version} will be passed to it.`);
   }
 
   /**
    * Gets the current state of migrations as a collection. All previously run migrations should be returned.
    *
-   * @param {string[]} columns  - The property names that forge expects to be in the objects of the collection.
+   * @param {object[]} columns  - The property names that forge expects to be in the objects of the collection.
    *        This corresponds to the table columns that were passed in `createTable` and `insert`.
    * @returns {Promise<object[]>} - The entire current state as an array of objects matching the column names as object properties
    */
-  getMigrationState(columns) {
+  async getMigrationState(columns) {
     throw new Error('`getMigrationState` must be defined by the forge plugin.');
   }
 }
