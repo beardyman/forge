@@ -26,11 +26,11 @@ describe('Migration State Model', function() {
     expect(plugin.createSchema.args[0][0]).to.equal('nimbus');
     expect(plugin.createTable.callCount).to.equal(1);
     expect(plugin.createTable.args[0][0]).to.equal('tabs');
-    expect(plugin.createTable.args[0][1]).to.deep.equal({
-      version: 'text',
-      name: 'text',
-      filename: 'text'
-    });
+    expect(plugin.createTable.args[0][1]).to.deep.equal([
+      {name: 'version', datatype: 'text'},
+      {name: 'name', datatype: 'text'},
+      {name: 'filename', datatype: 'text'}
+    ]);
   });
 
   it('should get the current state', async function() {
