@@ -86,8 +86,8 @@ export default class PostgresStatePlugin extends PluginInterface {
    * @inheritDoc
    */
   remove( columnValues ) {
-    const query = `DELETE FROM ${this.fQTable} where version = '${columnValues.version}' `;
-    return this.db.query( query, );
+    const query = `DELETE FROM ${this.fQTable} where version = $(version) `;
+    return this.db.query( query, columnValues );
   }
 
   /**

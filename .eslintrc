@@ -15,10 +15,14 @@
     "mocha"
   ],
   "rules": {
+    "comma-dangle": ["error", "never"],
+    "comma-spacing": ["error", {"before": false, "after": true}],
+    "eqeqeq": ["error", "always"],
     "max-len": ["error", {
       "code": 150,
       "tabWidth": 2
     }],
+    "prefer-arrow-callback": ["error"],
     "quotes": ["error", "single"],
     "quote-props": ["error", "as-needed"],
     "semi": "error",
@@ -26,7 +30,8 @@
     "space-before-function-paren": ["error", "never"],
     "space-in-parens": ["error", "always", {
       "exceptions": ["{}", "[]", "()", "empty"]
-    }]
+    }],
+    "yoda": ["error", "never"]
   },
   "overrides": [
     {
@@ -48,7 +53,7 @@
         "sinon": "writeable"
       },
       "rules": {
-
+        "prefer-arrow-callback": "off"
       }
     }
   ]

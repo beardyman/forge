@@ -14,7 +14,7 @@ describe.skip( 'Plugin Model and Base Plugin', function() {
     model = await esmock( '../../../../lib/model/plugin.js', {
       '../../../../lib/config': {config: {my: 'config'}},
       path: {resolve: sinon.stub().returns( pathToPlugin )},
-      'find-up': {findUp},
+      'find-up': {findUp}
     });
   });
 
