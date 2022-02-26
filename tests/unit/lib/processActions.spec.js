@@ -109,8 +109,15 @@ describe( 'Process Actions', function() {
       expect( results ).to.deep.equal([{version:1}, {version:2}, {version: 3}]);
     });
 
-    it( 'should prevent an old-new version from being run', function() {
-
+    it( 'should prevent an old-new version from being run', async function() {
+      migrationState.getCurrentState.resolves([{version: 1}, {version: 3}]);
+      try {
+        await lib.getMigrationsBeforeVersion();
+        expect( 'this should' ).to.equal( 'not pass' );
+      } catch ( err ) {
+        expect( err ).to.match( /older than the current state/ );
+        expect( err.cause ).to.deep.equal([{version: 2}]);
+      }
     });
   });
 });
