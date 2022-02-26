@@ -1,9 +1,9 @@
 
 
 export function migrate() {
-  console.log('running version 102');
+  console.log( 'running version 102' );
 }
 
 export function rollback() {
-  console.log('rolling back version 102');
+  console.log( 'rolling back version 102' );
 }

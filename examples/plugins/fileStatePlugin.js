@@ -37,7 +37,7 @@ export default class FileStatePlugin extends PluginInterface {
   async #getFileLines() {
     const fileHandle = await this.#getFileForAppending();
     const fileContents = await fileHandle.readFile({ encoding: 'utf8' });
-    return fileContents.split(EOL);
+    return fileContents.split( EOL );
   }
 
   /**
@@ -46,7 +46,7 @@ export default class FileStatePlugin extends PluginInterface {
    * @returns {Promise<FileHandle>}
    */
   async #getFileForAppending() {
-    return await fs.open(this.#getFileName(), 'a+');
+    return await fs.open( this.#getFileName(), 'a+' );
   }
 
   /**
@@ -56,9 +56,9 @@ export default class FileStatePlugin extends PluginInterface {
    *
    * @returns {Promise<string | undefined>}
    */
-  async createSchema(schema) {
+  async createSchema( schema ) {
     this.stateDirectory = `./${schema}`;
-    return fs.mkdir(this.stateDirectory, { recursive: true }); //use recursive so it works idempotently
+    return fs.mkdir( this.stateDirectory, { recursive: true }); //use recursive so it works idempotently
   }
 
   /**
@@ -67,8 +67,8 @@ export default class FileStatePlugin extends PluginInterface {
    * @inheritDoc
    * @returns {Promise<void>}
    */
-  async createTable(tableName, columnDefinitions) {
-    this.tableColumnOrder = columnDefinitions.map((columnDef)=>columnDef.name);
+  async createTable( tableName, columnDefinitions ) {
+    this.tableColumnOrder = columnDefinitions.map(( columnDef )=>columnDef.name );
     await this.#getFileForAppending(); // creates the file if it doesn't exist
   }
 
@@ -76,14 +76,14 @@ export default class FileStatePlugin extends PluginInterface {
    * Adds a new line when running a migration
    * @inheritDoc
    */
-  async insert(columnValues) {
+  async insert( columnValues ) {
     // get the values in sort order
-    const row = this.tableColumnOrder.reduce((row, column)=>{
-      row.push(columnValues[column]);
+    const row = this.tableColumnOrder.reduce(( row, column )=>{
+      row.push( columnValues[column]);
       return row;
     }, []);
     const fileHandle = await this.#getFileForAppending();
-    await fileHandle.appendFile(`${row.join(this.columnSeparator)}${EOL}`);
+    await fileHandle.appendFile( `${row.join( this.columnSeparator )}${EOL}` );
   }
 
   /**
@@ -93,14 +93,14 @@ export default class FileStatePlugin extends PluginInterface {
   async remove({version}) {
     let lines = await this.#getFileLines();
     // omit any empty lines
-    lines = without(lines, '');
+    lines = without( lines, '' );
 
     // remove the rollback version
-    lines = without(lines, (item) =>
-      item.split(this.columnSeparator)[this.tableColumnOrder.indexOf('version')] === version);
+    lines = without( lines, ( item ) =>
+      item.split( this.columnSeparator )[this.tableColumnOrder.indexOf( 'version' )] === version );
 
-    const writerFileHandle = await fs.open(this.#getFileName(), 'w'); // this will truncate the file;
-    await writerFileHandle.write(`${lines.join(EOL)}${EOL}`); // we expect a new line at the end of the file
+    const writerFileHandle = await fs.open( this.#getFileName(), 'w' ); // this will truncate the file;
+    await writerFileHandle.write( `${lines.join( EOL )}${EOL}` ); // we expect a new line at the end of the file
   }
 
   /**
@@ -108,17 +108,17 @@ export default class FileStatePlugin extends PluginInterface {
    * @inheritDoc
    * @returns {Promise<Object[]>} - The file contents as an array of objects
    */
-  async getMigrationState(columns) {
+  async getMigrationState( columns ) {
     const lines = await this.#getFileLines();
 
-    this.tableColumnOrder = columns.map((columnDef)=>columnDef.name);
+    this.tableColumnOrder = columns.map(( columnDef )=>columnDef.name );
 
     // using `reduce` / `if` instead of `map` to avoid any empty lines
-    return lines.reduce((states, line) => {
-      if (line.length > 0) {
+    return lines.reduce(( states, line ) => {
+      if ( line.length > 0 ) {
         // turn the values from each line into an object
-        const lineParts = line.split(this.columnSeparator);
-        states.push(columns.reduce((row, column, index) => {
+        const lineParts = line.split( this.columnSeparator );
+        states.push( columns.reduce(( row, column, index ) => {
           row[column.name] = lineParts[index];
           return row;
         }, {}));
@@ -137,13 +137,13 @@ export default class FileStatePlugin extends PluginInterface {
  *        truthy value for items to be removed.
  * @returns {Array} - An array without any instances of the value passed
  */
-function without(array, value) {
-  return array.reduce((items, item) => {
-    if ((value instanceof Function) && !value(item)){
-      items.push(item);
+function without( array, value ) {
+  return array.reduce(( items, item ) => {
+    if (( value instanceof Function ) && !value( item )) {
+      items.push( item );
     }
-    else if (!(value instanceof Function) && item !== value) {
-      items.push(item);
+    else if ( !( value instanceof Function ) && item !== value ) {
+      items.push( item );
     }
     return items;
   }, []);

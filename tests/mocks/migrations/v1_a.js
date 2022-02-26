@@ -9,7 +9,7 @@ export const mocks = {
 
 
 export function resetMocks() {
-  Object.keys(mocks).forEach((mock)=>{
+  Object.keys( mocks ).forEach(( mock )=>{
     mocks[mock].resetHistory();
   });
 }

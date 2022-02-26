@@ -14,7 +14,7 @@ class PluginInterface {
    *
    * @param {object} config - the forge runtime config from user configuration merged with forge's defaults.
    */
-  constructor(config) {
+  constructor( config ) {
     this.config = config;
   }
 
@@ -25,8 +25,8 @@ class PluginInterface {
    * @param {string} schema - The name of the schema from the config.
    * @returns {Promise<undefined>} - Resolves when complete
    */
-  async createSchema(schema) {
-    throw new Error(`'createSchema' must be defined by the forge plugin. Schema '${schema}' will be passed to it.`);
+  async createSchema( schema ) {
+    throw new Error( `'createSchema' must be defined by the forge plugin. Schema '${schema}' will be passed to it.` );
   }
 
   /**
@@ -38,9 +38,9 @@ class PluginInterface {
    * @param {string} columnDefinitions[].datatype - The datatype of the column
    * @returns {Promise<undefined>} - Resolves when complete
    */
-  async createTable(tableName, columnDefinitions) {
-    throw new Error(`'createTable' must be defined by the forge plugin. A hash with the keys ${Object.keys(tableColumnMap).join(', ')
-    } will be passed to it`);
+  async createTable( tableName, columnDefinitions ) {
+    throw new Error( `'createTable' must be defined by the forge plugin. A hash with the keys ${Object.keys( tableColumnMap ).join( ', ' )
+    } will be passed to it` );
   }
 
   /**
@@ -49,9 +49,10 @@ class PluginInterface {
    * @param {object} columnValues - Mapping of column names to values
    * @returns {Promise<undefined>} - Resolves when complete
    */
-  async insert(columnValues) {
-    throw new Error(`'insert' must be defined by the forge plugin. A hash of column names to values (keys:${Object.keys(columnValueMap).join(', ')
-    }; values:${Object.values(columnValueMap).join(', ')}) will be passed ot it.`);
+  async insert( columnValues ) {
+    throw new Error(
+      `'insert' must be defined by the forge plugin. A hash of column names to values (keys:${Object.keys( columnValueMap ).join( ', ' )
+    }; values:${Object.values( columnValueMap ).join( ', ' )}) will be passed ot it.` );
   }
 
   /**
@@ -60,8 +61,8 @@ class PluginInterface {
    * @param {object} columnValues  - The column values for the migration to be removed.
    * @returns {Promise<undefined>} - Resolves when complete
    */
-  async remove(columnValues) {
-    throw new Error(`'remove' must be defined by the forge plugin. The version ${version} will be passed to it.`);
+  async remove( columnValues ) {
+    throw new Error( `'remove' must be defined by the forge plugin. The version ${version} will be passed to it.` );
   }
 
   /**
@@ -71,8 +72,8 @@ class PluginInterface {
    *        This corresponds to the table columns that were passed in `createTable` and `insert`.
    * @returns {Promise<object[]>} - The entire current state as an array of objects matching the column names as object properties
    */
-  async getMigrationState(columns) {
-    throw new Error('`getMigrationState` must be defined by the forge plugin.');
+  async getMigrationState( columns ) {
+    throw new Error( '`getMigrationState` must be defined by the forge plugin.' );
   }
 }
 

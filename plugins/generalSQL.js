@@ -8,13 +8,13 @@ import PluginInterface from './pluginInterface.js';
  * @abstract
  */
 class GeneralSQL extends PluginInterface {
-  constructor(config){
-    super(config);
+  constructor( config ) {
+    super( config );
 
     this.schema = config.schema;
     this.fQTable = `${config.schema}.${config.migrationTable}`;
     this.db = { query: () => {
-      throw new Error('Forge Plugin Error - `this.db` must have a query function');
+      throw new Error( 'Forge Plugin Error - `this.db` must have a query function' );
     }};
   }
 
@@ -24,10 +24,10 @@ class GeneralSQL extends PluginInterface {
    * @param {Object[]} columnDefinitions - column definitions passed to createTable
    * @returns {string} - DDL body for columns for table creation
    */
-  #createColumnDefinitions(columnDefinitions) {
-    return  _.map(columnDefinitions, (type, field)=>{
+  #createColumnDefinitions( columnDefinitions ) {
+    return  _.map( columnDefinitions, ( type, field )=>{
       return `${field} ${type}`;
-    }).join(',\n');
+    }).join( ',\n' );
   }
 
   /**
@@ -36,10 +36,10 @@ class GeneralSQL extends PluginInterface {
    * @param {Object} columnValues - A hash of columns to values
    * @returns {{columns: *[], values: *[]}} - Separated columns and values in corresponding order
    */
-  #createColumnValues(columnValues) {
-    return _.reduce(columnValues, (result, value, field) => {
-      result.columns.push(field);
-      result.values.push(value);
+  #createColumnValues( columnValues ) {
+    return _.reduce( columnValues, ( result, value, field ) => {
+      result.columns.push( field );
+      result.values.push( value );
       return result;
     }, {columns: [], values:[]});
   }
@@ -47,43 +47,43 @@ class GeneralSQL extends PluginInterface {
   /**
    * @inheritDoc
    */
-  createSchema(schema) {
+  createSchema( schema ) {
     const query = `CREATE SCHEMA IF NOT EXISTS ${schema};`;
-    return this.db.query(query);
+    return this.db.query( query );
   }
 
   /**
    * @inheritDoc
    */
-  createTable(tableName, columnDefinitions) {
-    const columnDefinitionSQL = this.#createColumnDefinitions(columnDefinitions);
+  createTable( tableName, columnDefinitions ) {
+    const columnDefinitionSQL = this.#createColumnDefinitions( columnDefinitions );
 
     const query = `CREATE TABLE IF NOT EXISTS ${this.fQTable} (${columnDefinitionSQL});`;
-    return this.db.query(query);
+    return this.db.query( query );
   }
 
   /**
    * @inheritDoc
    */
-  insert(columnValues) {
-    const {columns, values} = this.#createColumnValues(columnValues);
-    const query = `INSERT INTO ${this.fQTable} (${columns.join(', ')}) VALUES (${values.map((v)=>`'${v}'`).join(', ')});`;
-    return this.db.query(query);
+  insert( columnValues ) {
+    const {columns, values} = this.#createColumnValues( columnValues );
+    const query = `INSERT INTO ${this.fQTable} (${columns.join( ', ' )}) VALUES (${values.map(( v )=>`'${v}'` ).join( ', ' )});`;
+    return this.db.query( query );
   }
 
   /**
    * @inheritDoc
    */
-  remove(columnValues) {
+  remove( columnValues ) {
     const query = `DELETE FROM ${this.fQTable} where version = '${columnValues.version}' `;
-    return this.db.query(query);
+    return this.db.query( query );
   }
 
   /**
    * @inheritDoc
    */
   getMigrationState() {
-    return this.db.query(`select * from ${this.fQTable}`);
+    return this.db.query( `select * from ${this.fQTable}` );
   }
 }
 export default GeneralSQL;
