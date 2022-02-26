@@ -116,7 +116,7 @@ describe( 'Process Actions', function() {
         expect( 'this shall' ).to.equal( 'not pass' );
       } catch ( err ) {
         expect( err ).to.match( /older than the current state/ );
-        expect( err.cause ).to.deep.equal([{version: 2}]);
+        expect( err.outOfOrderMigrations ).to.deep.equal([{version: 2}]);
       }
     });
   });
