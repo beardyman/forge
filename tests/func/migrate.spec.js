@@ -5,13 +5,15 @@ import * as mockMigrations from '../mocks/migrations/index.js';
 
 import cli from '../../cli.js';
 
+console.log( sinon.stub());
+
 describe( 'Migrate', function() {
   beforeEach( function() {
     resetMocks(); // resets the plugin mocks
     mockMigrations.resetAll();
   });
 
-  it( 'should create a table, run, and insert the current migraitons', async function() {
+  it( 'should create a table, run, and insert the current migrations in the right order', async function() {
     await cli( cliParamBuilder({command: 'migrate'}));
     expect( mocks.createSchema.callCount ).to.equal( 1 );
     expect( mocks.createTable.callCount ).to.equal( 1 );
@@ -19,6 +21,10 @@ describe( 'Migrate', function() {
     expect( mockMigrations.mocks.b.migrate.callCount ).to.equal( 1 );
     expect( mockMigrations.mocks.c.migrate.callCount ).to.equal( 1 );
     expect( mocks.insert.callCount ).to.equal( 3 );
+
+    // check order
+    expect( mockMigrations.mocks.a.migrate ).to.have.been.calledBefore( mockMigrations.mocks.b.migrate );
+    expect( mockMigrations.mocks.b.migrate ).to.have.been.calledBefore( mockMigrations.mocks.c.migrate );
   });
 
   it( 'should migrate to a version', async function() {

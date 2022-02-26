@@ -113,7 +113,7 @@ describe( 'Process Actions', function() {
       migrationState.getCurrentState.resolves([{version: 1}, {version: 3}]);
       try {
         await lib.getMigrationsBeforeVersion();
-        expect( 'this should' ).to.equal( 'not pass' );
+        expect( 'this shall' ).to.equal( 'not pass' );
       } catch ( err ) {
         expect( err ).to.match( /older than the current state/ );
         expect( err.cause ).to.deep.equal([{version: 2}]);

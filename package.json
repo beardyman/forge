@@ -49,7 +49,8 @@
     "esmock": "^1.7.2",
     "husky": "^7.0.4",
     "mocha": "^9.1.4",
-    "sinon": "^12.0.1"
+    "sinon": "^12.0.1",
+    "sinon-chai": "^3.7.0"
   },
   "forge": {
     "comment": "This is only used for functional tests",
