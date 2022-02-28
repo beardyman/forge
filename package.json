@@ -54,8 +54,8 @@
     "sinon-chai": "^3.7.0"
   },
   "forge": {
-    "comment": "This is only used for functional tests",
-    "logLevel": "fatal",
+    "comment": "This is only used for functional tests - logLevel should be reset to 'fatal'",
+    "logLevel": "debug",
     "migrationStatePlugin": "tests/mocks/MockMigrationStatePlugin.js",
     "migrationsDirectory": "tests/mocks/migrations",
     "nodeModule": {
