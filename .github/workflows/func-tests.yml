@@ -24,7 +24,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm ci
-      - run: npm run test:func
+      - run: npm run test:funccov
       - name: Archive Func Test Code Coverage Results
         uses: actions/upload-artifact@v2
         with:
