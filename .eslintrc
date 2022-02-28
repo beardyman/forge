@@ -50,9 +50,9 @@
         "plugin:mocha/recommended"
       ],
       "globals": {
-        "expect": "writeable",
-        "esmock": "writeable",
-        "sinon": "writeable"
+        "expect": "writable",
+        "esmock": "writable",
+        "sinon": "writable"
       },
       "rules": {
         "prefer-arrow-callback": "off"
