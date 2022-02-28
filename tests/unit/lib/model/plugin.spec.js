@@ -20,7 +20,7 @@ describe.skip( 'Plugin Model and Base Plugin', function() {
 
   it( 'should load the plugin file', async function() {
     const plugin = await model.loadPluginFile();
-    expect( _.keys( plugin )).to.deep.equal(['config']);
+    expect( _.keys( plugin )).to.deep.equal([ 'config' ]);
     expect( plugin.createSchema ).to.throw( '\'createSchema\' must be defined by the forge plugin. Schema undefined will be passed to it.' );
     expect( plugin.createTable ).to.throw( '\'createTable\' must be defined by the forge plugin.' );
     expect( plugin.insert ).to.throw( '\'insert\' must be defined by the forge plugin.' );
@@ -30,6 +30,6 @@ describe.skip( 'Plugin Model and Base Plugin', function() {
 
   it( 'should return the plugin',  function() {
     const plugin = model.default();
-    expect( _.keys( plugin )).to.deep.equal(['config']);
+    expect( _.keys( plugin )).to.deep.equal([ 'config' ]);
   });
 });

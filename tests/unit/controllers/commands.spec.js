@@ -57,14 +57,14 @@ describe( 'Commands Controllers', function() {
 
   describe( 'Rollback', function() {
     it( 'should process rollbacks if there are any', async function() {
-      processActions.getMigrationsAfterVersion.resolves(['figs', 'migs']);
+      processActions.getMigrationsAfterVersion.resolves([ 'figs', 'migs' ]);
 
       await commands.rollback({version: 5});
       expect( processActions.getMigrationsAfterVersion.callCount ).to.equal( 1 );
       expect( processActions.getMigrationsAfterVersion.args[0][0]).to.equal( 5 );
       expect( processActions.processTasks.callCount ).to.equal( 1 );
       // expect them to be passed in reverse order
-      expect( processActions.processTasks.args[0][0]).to.deep.equal(['migs', 'figs']);
+      expect( processActions.processTasks.args[0][0]).to.deep.equal([ 'migs', 'figs' ]);
     });
 
     it( 'shouldn\'t process migrations if there aren\'t any', async function() {

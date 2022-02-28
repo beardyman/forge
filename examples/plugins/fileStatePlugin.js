@@ -58,7 +58,7 @@ export default class FileStatePlugin extends PluginInterface {
    */
   async createSchema( schema ) {
     this.stateDirectory = `./${schema}`;
-    return fs.mkdir( this.stateDirectory, { recursive: true }); //use recursive so it works idempotently
+    return fs.mkdir( this.stateDirectory, { recursive: true }); // use recursive so it works idempotently
   }
 
   /**

@@ -9,5 +9,5 @@
  * @returns {{version, _: *[]}}
  */
 export function cliParamBuilder({command, name, version}) {
-  return {_: [command, name], version};
+  return {_: [ command, name ], version};
 }

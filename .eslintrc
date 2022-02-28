@@ -27,6 +27,13 @@
     "semi": "error",
     "space-before-blocks": ["error", "always"],
     "space-before-function-paren": ["error", "never"],
+    "array-bracket-spacing": ["error", "always", {
+      "objectsInArrays": false,
+      "arraysInArrays": false
+    }],
+    "spaced-comment": ["error", "always", {
+      "block": {"markers": ["*"]}
+    }],
     "space-in-parens": ["error", "always", {
       "exceptions": ["{}", "[]", "()", "empty"]
     }],

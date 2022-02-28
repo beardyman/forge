@@ -44,7 +44,7 @@ describe( 'Migrations Model', function() {
     });
 
     it( 'should get migration files', async function() {
-      fs.readdir.resolves(['v1_migration.js', 'v2_migration.js']);
+      fs.readdir.resolves([ 'v1_migration.js', 'v2_migration.js' ]);
 
       const files = await model.getMigrationFiles();
       expect( _.isArray( files )).to.equal( true );
@@ -52,7 +52,7 @@ describe( 'Migrations Model', function() {
     });
 
     it( 'should only get migration files matching the v###_###.js schema', async function() {
-      fs.readdir.resolves(['v1_migration.js', 'v2_migration.js', 'something else', 'another.js']);
+      fs.readdir.resolves([ 'v1_migration.js', 'v2_migration.js', 'something else', 'another.js' ]);
 
       const files = await model.getMigrationFiles();
       expect( _.isArray( files )).to.equal( true );

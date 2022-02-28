@@ -34,7 +34,7 @@ describe( 'Process Actions', function() {
 
   describe( 'record migrations', function() {
     it( 'should work', async function() {
-      await lib.recordMigrations(['a', 'b', 'c']);
+      await lib.recordMigrations([ 'a', 'b', 'c' ]);
       expect ( migrationState.recordMigration.callCount ).to.equal( 3 );
     });
   });
