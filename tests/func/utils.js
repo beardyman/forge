@@ -8,6 +8,6 @@
  * @param version
  * @returns {{version, _: *[]}}
  */
-export function cliParamBuilder({command, name, version}) {
-  return {_: [ command, name ], version};
+export function cliParamBuilder({ command, name, version }) {
+  return { _: [ command, name ], version };
 }

@@ -22,12 +22,12 @@ describe( 'Config', function() {
   beforeEach( async function() {
     findUp = sinon.stub().resolves( 'somePath' );
 
-    jsonConfig = {forge: {migrationStatePlugin: 'someFile'}};
+    jsonConfig = { forge: { migrationStatePlugin: 'someFile' }};
     jsonRequire = sinon.stub().returns( jsonConfig );
-    const moduleLoader = {createRequire: sinon.stub().returns( jsonRequire )};
+    const moduleLoader = { createRequire: sinon.stub().returns( jsonRequire ) };
 
     lib = await esmock( '../../../lib/config.js', {
-      'find-up': {findUp},
+      'find-up': { findUp },
       module: moduleLoader
     });
   });
@@ -91,7 +91,7 @@ describe( 'Config', function() {
   });
 
   it( 'should load any user specified properties', async function() {
-    jsonConfig = configSetter({logLevel: 'debug', schema: 'dopeSchema'});
+    jsonConfig = configSetter({ logLevel: 'debug', schema: 'dopeSchema' });
 
     jsonRequire.returns( jsonConfig );
     const config = await lib.loadConfig();
@@ -110,8 +110,8 @@ describe( 'Config', function() {
 
     beforeEach( function() {
       jsonConfig = {};
-      jsonConfig = configSetter({logLevel: 'debug', right: 'one', migrationStatePlugin: 'pluggs', schema: 'dopeSchema'}, 'right' );
-      jsonConfig = configSetter({other: 'config'}, 'wrong' );
+      jsonConfig = configSetter({ logLevel: 'debug', right: 'one', migrationStatePlugin: 'pluggs', schema: 'dopeSchema' }, 'right' );
+      jsonConfig = configSetter({ other: 'config' }, 'wrong' );
       jsonRequire.returns( jsonConfig );
     });
 

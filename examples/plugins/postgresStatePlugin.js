@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 // In a real project this would be:
 // import { PluginInterface } from 'forge';
-import {PluginInterface} from '../../index.js';
+import { PluginInterface } from '../../index.js';
 
 /*
   pg uses env vars for connection details like so
@@ -38,7 +38,7 @@ export default class PostgresStatePlugin extends PluginInterface {
    * @returns {string} - DDL body for columns for table creation
    */
   #createColumnDefinitions( columnDefinitions ) {
-    return  _.map( columnDefinitions, ({name, datatype}) => `${name} ${datatype}` ).join( ',\n' );
+    return  _.map( columnDefinitions, ({ name, datatype }) => `${name} ${datatype}` ).join( ',\n' );
   }
 
   /**
@@ -52,7 +52,7 @@ export default class PostgresStatePlugin extends PluginInterface {
       result.columns.push( field );
       result.values.push( value );
       return result;
-    }, {columns: [], values:[]});
+    }, { columns: [], values:[]});
   }
 
   /**
@@ -77,7 +77,7 @@ export default class PostgresStatePlugin extends PluginInterface {
    * @inheritDoc
    */
   insert( columnValues ) {
-    const {columns, values} = this.#createColumnValues( columnValues );
+    const { columns, values } = this.#createColumnValues( columnValues );
     const query = `INSERT INTO ${this.fQTable} (${columns.join( ', ' )}) VALUES (${values.map(( v )=>`'${v}'` ).join( ', ' )});`;
     return this.db.query( query );
   }

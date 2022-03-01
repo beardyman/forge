@@ -4,7 +4,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 import './bootstrap.js';
-import {cliParamBuilder} from './utils.js';
+import { cliParamBuilder } from './utils.js';
 import * as fileMocks from '../mocks/MockMigrationStatePlugin.js';
 import * as mockMigrations from '../mocks/migrations/index.js';
 
@@ -18,7 +18,7 @@ describe( 'Initialization', function() {
     // create fake node module plugin mock
     const currentDirectory = dirname( fileURLToPath( import.meta.url ));
     const mockPluginPath = `${currentDirectory}/../../node_modules/mock-forge-plugin`;
-    await mkdir( mockPluginPath, {recursive: true});
+    await mkdir( mockPluginPath, { recursive: true });
     await copyFile( `${currentDirectory}/../mocks/MockMigrationStatePlugin.js`, `${mockPluginPath}/index.js` );
     await copyFile( `${currentDirectory}/../../package.json`, `${mockPluginPath}/package.json` );
     moduleMocks = await import( 'mock-forge-plugin' );
@@ -30,7 +30,7 @@ describe( 'Initialization', function() {
   });
 
   it( 'should create a table and insert existing migrations using a file plugin', async function() {
-    await cli( cliParamBuilder({command: 'initialize'}));
+    await cli( cliParamBuilder({ command: 'initialize' }));
     expect( fileMocks.mocks.createSchema.callCount ).to.equal( 1 );
     expect( fileMocks.mocks.createTable.callCount ).to.equal( 1 );
     expect( moduleMocks.mocks.createSchema.callCount ).to.equal( 0 );
@@ -46,7 +46,7 @@ describe( 'Initialization', function() {
   });
 
   it( 'should create a table and insert existing migrations using a module plugin', async function() {
-    await cli( cliParamBuilder({command: 'initialize', name: 'nodeModule'}));
+    await cli( cliParamBuilder({ command: 'initialize', name: 'nodeModule' }));
     expect( fileMocks.mocks.createSchema.callCount ).to.equal( 0 );
     expect( fileMocks.mocks.createTable.callCount ).to.equal( 0 );
     expect( moduleMocks.mocks.createSchema.callCount ).to.equal( 1 );

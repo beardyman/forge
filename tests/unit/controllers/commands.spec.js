@@ -19,14 +19,14 @@ describe( 'Commands Controllers', function() {
     };
 
     commands = await esmock( '../../../controllers/commands.js', {
-      '../../../lib/logger': {log},
+      '../../../lib/logger': { log },
       '../../../lib/processActions': processActions
     });
   });
 
   describe( 'Initialize', function() {
     it( 'should call initialize and record migrations', async function() {
-      await commands.initialize({version: 5});
+      await commands.initialize({ version: 5 });
       expect( processActions.initializeMigrationTable.callCount ).to.equal( 1 );
       expect( processActions.getMigrationsBeforeVersion.callCount ).to.equal( 1 );
       expect( processActions.getMigrationsBeforeVersion.args[0][0]).to.equal( 5 );
@@ -38,7 +38,7 @@ describe( 'Commands Controllers', function() {
     it( 'should process migrations if there are any', async function() {
       processActions.getMigrationsBeforeVersion.resolves( 'migs' );
 
-      await commands.migrate({version: 5});
+      await commands.migrate({ version: 5 });
       expect( processActions.initializeMigrationTable.callCount ).to.equal( 1 );
       expect( processActions.getMigrationsBeforeVersion.callCount ).to.equal( 1 );
       expect( processActions.getMigrationsBeforeVersion.args[0][0]).to.equal( 5 );
@@ -47,7 +47,7 @@ describe( 'Commands Controllers', function() {
     });
 
     it( 'shouldm\'t process migrations if there arem\'t any', async function() {
-      await commands.migrate({version: 5});
+      await commands.migrate({ version: 5 });
       expect( processActions.initializeMigrationTable.callCount ).to.equal( 1 );
       expect( processActions.getMigrationsBeforeVersion.callCount ).to.equal( 1 );
       expect( processActions.getMigrationsBeforeVersion.args[0][0]).to.equal( 5 );
@@ -59,7 +59,7 @@ describe( 'Commands Controllers', function() {
     it( 'should process rollbacks if there are any', async function() {
       processActions.getMigrationsAfterVersion.resolves([ 'figs', 'migs' ]);
 
-      await commands.rollback({version: 5});
+      await commands.rollback({ version: 5 });
       expect( processActions.getMigrationsAfterVersion.callCount ).to.equal( 1 );
       expect( processActions.getMigrationsAfterVersion.args[0][0]).to.equal( 5 );
       expect( processActions.processTasks.callCount ).to.equal( 1 );
@@ -68,7 +68,7 @@ describe( 'Commands Controllers', function() {
     });
 
     it( 'shouldn\'t process migrations if there aren\'t any', async function() {
-      await commands.rollback({version: 5});
+      await commands.rollback({ version: 5 });
       expect( processActions.getMigrationsAfterVersion.callCount ).to.equal( 1 );
       expect( processActions.getMigrationsAfterVersion.args[0][0]).to.equal( 5 );
       expect( processActions.processTasks.callCount ).to.equal( 0 );

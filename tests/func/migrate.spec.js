@@ -1,11 +1,9 @@
 import './bootstrap.js';
-import {cliParamBuilder} from './utils.js';
-import {mocks, resetMocks} from '../mocks/MockMigrationStatePlugin.js';
+import { cliParamBuilder } from './utils.js';
+import { mocks, resetMocks } from '../mocks/MockMigrationStatePlugin.js';
 import * as mockMigrations from '../mocks/migrations/index.js';
 
 import cli from '../../cli.js';
-
-console.log( sinon.stub());
 
 describe( 'Migrate', function() {
   beforeEach( function() {
@@ -14,7 +12,7 @@ describe( 'Migrate', function() {
   });
 
   it( 'should create a table, run, and insert the current migrations in the right order', async function() {
-    await cli( cliParamBuilder({command: 'migrate'}));
+    await cli( cliParamBuilder({ command: 'migrate' }));
     expect( mocks.createSchema.callCount ).to.equal( 1 );
     expect( mocks.createTable.callCount ).to.equal( 1 );
     expect( mockMigrations.mocks.a.migrate.callCount ).to.equal( 1 );
@@ -28,7 +26,7 @@ describe( 'Migrate', function() {
   });
 
   it( 'should migrate to a version', async function() {
-    await cli( cliParamBuilder({command: 'migrate', version: 2}));
+    await cli( cliParamBuilder({ command: 'migrate', version: 2 }));
     expect( mocks.createSchema.callCount ).to.equal( 1 );
     expect( mocks.createTable.callCount ).to.equal( 1 );
     expect( mockMigrations.mocks.a.migrate.callCount ).to.equal( 1 );
@@ -38,9 +36,9 @@ describe( 'Migrate', function() {
   });
 
   it( 'should only run new migrations', async function() {
-    mocks.getMigrationState.resolves([{version: '1', name: 'a', filename: 'v1_a.js'}]);
+    mocks.getMigrationState.resolves([{ version: '1', name: 'a', filename: 'v1_a.js' }]);
 
-    await cli( cliParamBuilder({command: 'migrate'}));
+    await cli( cliParamBuilder({ command: 'migrate' }));
     expect( mocks.createSchema.callCount, 'schema' ).to.equal( 1 );
     expect( mocks.createTable.callCount, 'table' ).to.equal( 1 );
     expect( mockMigrations.mocks.a.migrate.callCount, 'a' ).to.equal( 0 );
@@ -50,9 +48,9 @@ describe( 'Migrate', function() {
   });
 
   it( 'should only run new migrations up to a version', async function() {
-    mocks.getMigrationState.resolves([{version: '1', name: 'a', filename: 'v1_a.js'}]);
+    mocks.getMigrationState.resolves([{ version: '1', name: 'a', filename: 'v1_a.js' }]);
 
-    await cli( cliParamBuilder({command: 'migrate', version: 2}));
+    await cli( cliParamBuilder({ command: 'migrate', version: 2 }));
     expect( mocks.createSchema.callCount, 'schema' ).to.equal( 1 );
     expect( mocks.createTable.callCount, 'table' ).to.equal( 1 );
     expect( mockMigrations.mocks.a.migrate.callCount, 'a' ).to.equal( 0 );

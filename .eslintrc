@@ -13,7 +13,12 @@
   "plugins": [
     "mocha"
   ],
+  "reportUnusedDisableDirectives": true,
   "rules": {
+    "array-bracket-spacing": ["error", "always", {
+      "objectsInArrays": false,
+      "arraysInArrays": false
+    }],
     "comma-dangle": ["error", "never"],
     "comma-spacing": ["error", {"before": false, "after": true}],
     "eqeqeq": ["error", "always"],
@@ -21,16 +26,17 @@
       "code": 150,
       "tabWidth": 2
     }],
+    "no-console": "error",
+    "object-curly-spacing": ["error", "always", {
+      "arraysInObjects": false,
+      "objectsInObjects": false
+    }],
     "prefer-arrow-callback": ["error"],
     "quotes": ["error", "single"],
     "quote-props": ["error", "as-needed"],
     "semi": "error",
     "space-before-blocks": ["error", "always"],
     "space-before-function-paren": ["error", "never"],
-    "array-bracket-spacing": ["error", "always", {
-      "objectsInArrays": false,
-      "arraysInArrays": false
-    }],
     "spaced-comment": ["error", "always", {
       "block": {"markers": ["*"]}
     }],

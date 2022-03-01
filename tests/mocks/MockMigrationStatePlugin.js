@@ -1,6 +1,6 @@
 
 import sinon from 'sinon';
-import {PluginInterface} from '../../index.js';
+import { PluginInterface } from '../../index.js';
 
 export const mocks = {
   createSchema: sinon.stub().resolves(),

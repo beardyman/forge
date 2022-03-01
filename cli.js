@@ -20,13 +20,12 @@ const main = async( argv ) => {
   validateCommands( command );
 
   await loadPluginFile();
-  // todo: validate plugin file
 
   // route to the correct command code
-  await supportedCommands[command]({version}).then(() => {
+  await supportedCommands[command]({ version }).then(() => {
     log.info( `${_.upperFirst( command )} command completed successfully.` );
   }).catch(( error ) => {
-    log.error({error: error.toString()}, 'There has been an issue during the migration' );
+    log.error({ error: error.toString() }, 'There has been an issue during the migration' );
   });
 };
 

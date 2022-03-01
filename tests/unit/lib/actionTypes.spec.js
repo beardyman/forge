@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import '../bootstrap.js';
 
-import actionTypes, {actionLookup} from '../../../lib/actionTypes.js';
+import actionTypes, { actionLookup } from '../../../lib/actionTypes.js';
 
 describe( 'Action Types', function() {
   it( 'should have defined types', function() {

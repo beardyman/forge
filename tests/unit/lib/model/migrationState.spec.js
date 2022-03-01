@@ -14,9 +14,9 @@ describe( 'Migration State Model', function() {
     };
 
     model = await esmock( '../../../../lib/model/migrationState.js', {
-      '../../../../lib/config': { config: {schema: 'nimbus', migrationTable: 'tabs'}},
-      '../../../../lib/logger': { log: {debug: sinon.stub(), info: sinon.stub()}},
-      '../../../../lib/model/plugin': {default: sinon.stub().returns( plugin )}
+      '../../../../lib/config': { config: { schema: 'nimbus', migrationTable: 'tabs' }},
+      '../../../../lib/logger': { log: { debug: sinon.stub(), info: sinon.stub() }},
+      '../../../../lib/model/plugin': { default: sinon.stub().returns( plugin ) }
     });
   });
 
@@ -27,10 +27,10 @@ describe( 'Migration State Model', function() {
     expect( plugin.createTable.callCount ).to.equal( 1 );
     expect( plugin.createTable.args[0][0]).to.equal( 'tabs' );
     expect( plugin.createTable.args[0][1]).to.deep.equal([
-      {name: 'version', datatype: 'text'},
-      {name: 'name', datatype: 'text'},
-      {name: 'filename', datatype: 'text'},
-      {name: 'rundate', datatype: 'timestamp'}
+      { name: 'version', datatype: 'text' },
+      { name: 'name', datatype: 'text' },
+      { name: 'filename', datatype: 'text' },
+      { name: 'rundate', datatype: 'timestamp' }
     ]);
   });
 
@@ -41,7 +41,7 @@ describe( 'Migration State Model', function() {
   });
 
   it( 'should add to the current state', async function() {
-    await model.recordMigration({name: 'migs'});
+    await model.recordMigration({ name: 'migs' });
     expect( plugin.insert.callCount ).to.equal( 1 );
     expect( plugin.insert.args[0][0]).to.have.property( 'rundate' );
     expect( plugin.insert.args[0][0].name ).to.equal( 'migs' );

@@ -90,7 +90,7 @@ export default class FileStatePlugin extends PluginInterface {
    * Rewrites the file after removing the last line
    * @inheritDoc
    */
-  async remove({version}) {
+  async remove({ version }) {
     let lines = await this.#getFileLines();
     // omit any empty lines
     lines = without( lines, '' );

@@ -55,7 +55,7 @@
   },
   "forge": {
     "comment": "This is only used for functional tests - logLevel should be reset to 'fatal'",
-    "logLevel": "debug",
+    "logLevel": "fatal",
     "migrationStatePlugin": "tests/mocks/MockMigrationStatePlugin.js",
     "migrationsDirectory": "tests/mocks/migrations",
     "nodeModule": {

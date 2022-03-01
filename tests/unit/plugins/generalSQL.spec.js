@@ -10,7 +10,7 @@ describe( 'General SQL interface plugin', function() {
       '../../../plugins/pluginInterface.js': sinon.stub()
     });
 
-    plugin = new Plugin({schema: 'mySchema', migrationTable: 'migs'});
+    plugin = new Plugin({ schema: 'mySchema', migrationTable: 'migs' });
   });
 
   it( 'should setup some config settings on `this`',  function() {

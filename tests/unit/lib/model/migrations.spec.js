@@ -4,7 +4,7 @@ import '../../bootstrap.js';
 import actionTypes from '../../../../lib/actionTypes.js';
 
 describe( 'Migrations Model', function() {
-  let model, fs, findUp, path;
+  let model, fs, findUp, path, loadUserModule, migrate;
 
   beforeEach( async function() {
     fs = {
@@ -20,11 +20,15 @@ describe( 'Migrations Model', function() {
       info: sinon.stub()
     };
 
+    migrate = sinon.stub();
+    loadUserModule = sinon.stub().resolves({ migrate });
+
     model = await esmock( '../../../../lib/model/migrations.js', {
-      '../../../../lib/config': {config: { my: 'config'}},
+      '../../../../lib/config': { config: { my: 'config' }},
       'fs/promises': fs,
-      'find-up': {findUp},
-      '../../../../lib/logger': {log},
+      'find-up': { findUp },
+      '../../../../lib/logger': { log },
+      '../../../../lib/utilities': { loadUserModule },
       path
     });
   });
@@ -63,37 +67,37 @@ describe( 'Migrations Model', function() {
   describe( 'parseFileNames', function() {
     it( 'should parse a file name for number versions', function() {
       const results = model.parseFileName( 'v1_a_b_c.js' );
-      expect( results ).to.deep.equal({version: '1', name: 'a b c', filename: 'v1_a_b_c.js'});
+      expect( results ).to.deep.equal({ version: '1', name: 'a b c', filename: 'v1_a_b_c.js' });
     });
 
     it( 'should parse a file name for named versions', function() {
       const results = model.parseFileName( 'vhi_a_b_c.js' );
-      expect( results ).to.deep.equal({version: 'hi', name: 'a b c', filename: 'vhi_a_b_c.js'});
+      expect( results ).to.deep.equal({ version: 'hi', name: 'a b c', filename: 'vhi_a_b_c.js' });
     });
 
     it( 'should parse a file name for date versions', function() {
       const results = model.parseFileName( 'v2022-01-05_a_b_c.js' );
-      expect( results ).to.deep.equal({version: '2022-01-05', name: 'a b c', filename: 'v2022-01-05_a_b_c.js'});
+      expect( results ).to.deep.equal({ version: '2022-01-05', name: 'a b c', filename: 'v2022-01-05_a_b_c.js' });
     });
   });
 
   describe( 'loadAction', function() {
-    const config = {migrationsDirectory: '../../tests/mocks/migrations'};
-    let testMigration;
+    const config = { migrationsDirectory: '../../tests/mocks/migrations' };
 
     beforeEach( async function() {
-      testMigration = await import( '../../../mocks/migrations/v1_a.js' );
-    });
-
-    afterEach( async function() {
-      await testMigration.resetMocks();
-    });
-
-    it( 'might work', async function() {
       path.resolve.returns( `${config.migrationsDirectory}/${'v1_a.js'}` );
+    });
+
+
+    it( 'should run a mock migration', async function() {
+
       const action = await model.loadAction( config, 'v1_a.js', actionTypes.migrate );
       expect( path.resolve.callCount ).to.equal( 1 );
-      testMigration.migrate(); // triggering action to show it's the same action
+      expect( loadUserModule.callCount ).to.equal( 1 );
+      expect( loadUserModule.args[0][0]).to.equal( '../../tests/mocks/migrations/v1_a.js' );
+      // ensure that it returns migrate
+      expect( action.callCount ).to.equal( 0 );
+      migrate(); // stub setup above returned from loadUserModule
       expect( action.callCount ).to.equal( 1 );
     });
   });

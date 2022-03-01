@@ -15,7 +15,7 @@ class GeneralSQL extends PluginInterface {
     this.fQTable = `${config.schema}.${config.migrationTable}`;
     this.db = { query: () => {
       throw new Error( 'Forge Plugin Error - `this.db` must have a query function' );
-    }};
+    } };
   }
 
   /**
@@ -41,7 +41,7 @@ class GeneralSQL extends PluginInterface {
       result.columns.push( field );
       result.values.push( value );
       return result;
-    }, {columns: [], values:[]});
+    }, { columns: [], values:[]});
   }
 
   /**
@@ -66,7 +66,7 @@ class GeneralSQL extends PluginInterface {
    * @inheritDoc
    */
   insert( columnValues ) {
-    const {columns, values} = this.#createColumnValues( columnValues );
+    const { columns, values } = this.#createColumnValues( columnValues );
     const query = `INSERT INTO ${this.fQTable} (${columns.join( ', ' )}) VALUES (${values.map(( v )=>`'${v}'` ).join( ', ' )});`;
     return this.db.query( query );
   }

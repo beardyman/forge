@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// disable no-console rule for this file since our normal logger needs to read in config to work.
+/* eslint-disable no-console */
 import min from 'minimist';
 import cli from '../cli.js';
 

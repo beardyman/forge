@@ -1,4 +1,6 @@
 
+
+/* eslint-disable no-console */
 export function migrate() {
   console.log( 'running version 101' );
 }

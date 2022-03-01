@@ -7,7 +7,7 @@ describe( 'Logger', function() {
   beforeEach( async function() {
     pino = sinon.stub().returns( 'logger' );
     lib = await esmock( '../../../lib/logger.js', {
-      '../../../lib/config': {config: {logLevel: 'probablySomethingReasonable'}},
+      '../../../lib/config': { config: { logLevel: 'probablySomethingReasonable' }},
       pino: pino
     });
   });
@@ -20,6 +20,6 @@ describe( 'Logger', function() {
     await lib.initializeLogger();
     expect( lib.log ).to.equal( 'logger' ); // from the mock!
     expect( pino.callCount ).to.equal( 1 );
-    expect( pino.args[0][0]).to.deep.equal({name: 'Forge', level: 'probablySomethingReasonable'});
+    expect( pino.args[0][0]).to.deep.equal({ name: 'Forge', level: 'probablySomethingReasonable' });
   });
 });
