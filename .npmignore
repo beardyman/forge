@@ -1,10 +1,11 @@
 .github
 .husky
 examples
-tests
 docs
 .nvmrc
 .eslintignore
 .eslintrc
 .gitignore
 node_modules
+test
+.git
