@@ -12,7 +12,6 @@ const require = createRequire( import.meta.url );
 const pkg = require( '../package.json' );
 updateNotifier({ pkg }).notify();
 
-
 const argv = min( process.argv.slice( 2 ));
 
 await cli( argv );

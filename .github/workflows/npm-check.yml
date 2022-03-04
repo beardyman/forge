@@ -1,4 +1,4 @@
-name: NPM Check
+name: NPM Audit Check
 
 on:
   push:
