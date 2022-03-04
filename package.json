@@ -2,6 +2,7 @@
   "name": "@beardyman/forge",
   "version": "0.0.0",
   "description": "A utility for deploying migrations for changing system state.",
+  "private": false,
   "main": "index.js",
   "type": "module",
   "bin": {
