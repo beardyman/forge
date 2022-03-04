@@ -22,7 +22,7 @@ describe( 'General SQL interface plugin', function() {
     expect( plugin.db.query ).to.throw( 'Forge Plugin Error - `this.db` must have a query function' );
   });
 
-  it( 'moar tests', function() {
+  it( 'moar test', function() {
 
   });
 });

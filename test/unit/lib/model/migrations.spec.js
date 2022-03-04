@@ -28,7 +28,7 @@ describe( 'Migrations Model', function() {
       'fs/promises': fs,
       'find-up': { findUp },
       '../../../../lib/logger': { log },
-      '../../../../lib/utilities': { loadUserModule },
+      '../../../../lib/fileUtilities': { loadUserModule },
       path
     });
   });
@@ -82,7 +82,7 @@ describe( 'Migrations Model', function() {
   });
 
   describe( 'loadAction', function() {
-    const config = { migrationsDirectory: '../../tests/mocks/migrations' };
+    const config = { migrationsDirectory: '../../test/mocks/migrations' };
 
     beforeEach( async function() {
       path.resolve.returns( `${config.migrationsDirectory}/${'v1_a.js'}` );
@@ -94,7 +94,7 @@ describe( 'Migrations Model', function() {
       const action = await model.loadAction( config, 'v1_a.js', actionTypes.migrate );
       expect( path.resolve.callCount ).to.equal( 1 );
       expect( loadUserModule.callCount ).to.equal( 1 );
-      expect( loadUserModule.args[0][0]).to.equal( '../../tests/mocks/migrations/v1_a.js' );
+      expect( loadUserModule.args[0][0]).to.equal( '../../test/mocks/migrations/v1_a.js' );
       // ensure that it returns migrate
       expect( action.callCount ).to.equal( 0 );
       migrate(); // stub setup above returned from loadUserModule

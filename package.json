@@ -16,13 +16,13 @@
     "test": "npm run test:unit && npm run test:func",
     "test:unit": "cross-env FCI_TEST_TYPE=unit npm run test:covrun --parallel",
     "test:func": "cross-env FCI_TEST_TYPE=func npm run test:covrun --parallel",
-    "test:unitcov": "cross-env c8 --reporter=lcov --reporter=text-summary --report-dir=tests/reports/unit mocha --loader=esmock tests/unit",
-    "test:funccov": "cross-env c8 --reporter=lcov --reporter=text-summary --report-dir=tests/reports/func mocha --loader=esmock tests/func",
-    "test:covrun": "c8 --reporter=lcov --reporter=text-summary --report-dir=tests/reports/$FCI_TEST_TYPE mocha --loader=esmock tests/$FCI_TEST_TYPE",
-    "test:run": "mocha --loader=esmock tests/$FCI_TEST_TYPE",
+    "test:unitcov": "cross-env c8 --reporter=lcov --reporter=text-summary --report-dir=test/reports/unit mocha --loader=esmock test/unit",
+    "test:funccov": "cross-env c8 --reporter=lcov --reporter=text-summary --report-dir=test/reports/func mocha --loader=esmock test/func",
+    "test:covrun": "c8 --reporter=lcov --reporter=text-summary --report-dir=test/reports/$FCI_TEST_TYPE mocha --loader=esmock test/$FCI_TEST_TYPE",
+    "test:run": "mocha --loader=esmock test/$FCI_TEST_TYPE",
     "cov:unit": "cross-env FCI_TEST_TYPE=unit npm run cov:run",
     "cov:func": "cross-env FCI_TEST_TYPE=func npm run cov:run",
-    "cov:run": "open tests/reports/$FCI_TEST_TYPE/lcov-report/index.html"
+    "cov:run": "open test/reports/$FCI_TEST_TYPE/lcov-report/index.html"
   },
   "mocha": {
     "recursive": true,
@@ -56,11 +56,11 @@
   "forge": {
     "comment": "This is only used for functional tests - logLevel should be reset to 'fatal'",
     "logLevel": "fatal",
-    "migrationStatePlugin": "tests/mocks/MockMigrationStatePlugin.js",
-    "migrationsDirectory": "tests/mocks/migrations",
+    "migrationStatePlugin": "test/mocks/MockMigrationStatePlugin.js",
+    "migrationsDirectory": "test/mocks/migrations",
     "nodeModule": {
       "migrationStatePlugin": "mock-forge-plugin",
-      "migrationsDirectory": "tests/mocks/migrations"
+      "migrationsDirectory": "test/mocks/migrations"
     }
   }
 }

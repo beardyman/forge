@@ -57,7 +57,7 @@
     },
     {
       "files": [
-        "tests/**/*.spec.js"
+        "test/**/*.spec.js"
       ],
       "extends": [
         "plugin:mocha/recommended"
