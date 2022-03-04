@@ -36,7 +36,8 @@
     "find-up": "^6.2.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
-    "pino": "^7.6.3"
+    "pino": "^7.6.3",
+    "update-notifier": "^5.1.0"
   },
   "devDependencies": {
     "c8": "^7.11.0",

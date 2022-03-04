@@ -3,7 +3,15 @@
 // disable no-console rule for this file since our normal logger needs to read in config to work.
 /* eslint-disable no-console */
 import min from 'minimist';
+import updateNotifier from 'update-notifier';
 import cli from '../cli.js';
+
+// check for updates
+import { createRequire } from 'module';
+const require = createRequire( import.meta.url );
+const pkg = require( '../package.json' );
+updateNotifier({ pkg }).notify();
+
 
 const argv = min( process.argv.slice( 2 ));
 
