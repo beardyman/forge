@@ -1,5 +1,5 @@
 {
-  "name": "forge",
+  "name": "@beardyman/forge",
   "version": "1.0.0",
   "description": "A utility for deploying migrations for changing system state.",
   "main": "index.js",
@@ -11,12 +11,12 @@
     "node": ">=14.0.0"
   },
   "files": [
-    "/bin",
-    "/controllers",
-    "/lib",
-    "/plugins",
-    "/cli.js",
-    "/index.js"
+    "bin",
+    "controllers",
+    "lib",
+    "plugins",
+    "cli.js",
+    "index.js"
   ],
   "scripts": {
     "lint": "eslint . --fix",
