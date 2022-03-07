@@ -4,11 +4,11 @@
  * In those functions you can run whatever is necessary to run the migration or rollback.
  * If you can do it in nodejs, it can run as part of this migration.
  */
-
+/* eslint-disable no-console */
 export function migrate() {
-  console.log('running version 100');
+  console.log( 'running version 100' );
 }
 
 export function rollback() {
-  console.log('rolling back version 100');
+  console.log( 'rolling back version 100' );
 }

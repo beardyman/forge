@@ -1,7 +1,6 @@
 {
   "extends": [
-    "eslint:recommended",
-    "plugin:mocha/recommended"
+    "eslint:recommended"
   ],
   "env": {
     "node": true,
@@ -14,14 +13,37 @@
   "plugins": [
     "mocha"
   ],
+  "reportUnusedDisableDirectives": true,
   "rules": {
+    "array-bracket-spacing": ["error", "always", {
+      "objectsInArrays": false,
+      "arraysInArrays": false
+    }],
+    "comma-dangle": ["error", "never"],
+    "comma-spacing": ["error", {"before": false, "after": true}],
+    "eqeqeq": ["error", "always"],
     "max-len": ["error", {
       "code": 150,
       "tabWidth": 2
     }],
+    "no-console": "error",
+    "object-curly-spacing": ["error", "always", {
+      "arraysInObjects": false,
+      "objectsInObjects": false
+    }],
+    "prefer-arrow-callback": ["error"],
     "quotes": ["error", "single"],
     "quote-props": ["error", "as-needed"],
-    "semi": "error"
+    "semi": "error",
+    "space-before-blocks": ["error", "always"],
+    "space-before-function-paren": ["error", "never"],
+    "spaced-comment": ["error", "always", {
+      "block": {"markers": ["*"]}
+    }],
+    "space-in-parens": ["error", "always", {
+      "exceptions": ["{}", "[]", "()", "empty"]
+    }],
+    "yoda": ["error", "never"]
   },
   "overrides": [
     {
@@ -35,15 +57,18 @@
     },
     {
       "files": [
-        "tests/**/*.spec.js"
+        "test/**/*.spec.js"
+      ],
+      "extends": [
+        "plugin:mocha/recommended"
       ],
       "globals": {
-        "expect": "writeable",
-        "esmock": "writeable",
-        "sinon": "writeable"
+        "expect": "writable",
+        "esmock": "writable",
+        "sinon": "writable"
       },
       "rules": {
-
+        "prefer-arrow-callback": "off"
       }
     }
   ]

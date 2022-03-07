@@ -1,6 +1,6 @@
 
 import sinon from 'sinon';
-import {PluginInterface} from '../../index.js';
+import { PluginInterface } from '../../index.js';
 
 export const mocks = {
   createSchema: sinon.stub().resolves(),
@@ -11,7 +11,7 @@ export const mocks = {
 };
 
 export function resetMocks() {
-  Object.keys(mocks).forEach((mock)=>{
+  Object.keys( mocks ).forEach(( mock )=>{
     mocks[mock].resetHistory();
   });
 }
@@ -20,7 +20,7 @@ export default class MockPlugin extends PluginInterface {
 
   constructor() {
     super();
-    Object.keys(mocks).forEach((mock)=>{
+    Object.keys( mocks ).forEach(( mock )=>{
       this[mock] = mocks[mock];
     });
   }

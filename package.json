@@ -1,7 +1,11 @@
 {
-  "name": "forge",
-  "version": "1.0.0",
+  "name": "@beardyman/forge",
+  "version": "0.1.0",
   "description": "A utility for deploying migrations for changing system state.",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "index.js",
   "type": "module",
   "bin": {
@@ -10,21 +14,29 @@
   "engines": {
     "node": ">=14.0.0"
   },
+  "files": [
+    "bin",
+    "controllers",
+    "lib",
+    "plugins",
+    "cli.js",
+    "index.js"
+  ],
   "scripts": {
     "docs": "jsdoc --configure .jsdoc.json",
     "docs:open": "open docs/index.html",
     "lint": "eslint . --fix",
     "lint:ci": "eslint .",
     "test": "npm run test:unit && npm run test:func",
-    "test:unit": "FCI_TEST_TYPE=unit npm run test:covrun --parallel",
-    "test:func": "FCI_TEST_TYPE=func npm run test:covrun --parallel",
-    "test:unitcov": "FCI_TEST_TYPE=unit npm run test:covrun",
-    "test:funccov": "FCI_TEST_TYPE=func npm run test:covrun",
-    "test:covrun": "c8 --reporter=lcov --reporter=text-summary --report-dir=tests/reports/$FCI_TEST_TYPE npm run test:run",
-    "test:run": "mocha --loader=esmock tests/$FCI_TEST_TYPE",
-    "cov:unit": "FCI_TEST_TYPE=unit npm run cov:run",
-    "cov:func": "FCI_TEST_TYPE=func npm run cov:run",
-    "cov:run": "open tests/reports/$FCI_TEST_TYPE/lcov-report/index.html"
+    "test:unit": "cross-env FCI_TEST_TYPE=unit npm run test:covrun --parallel",
+    "test:func": "cross-env FCI_TEST_TYPE=func npm run test:covrun --parallel",
+    "test:unitcov": "cross-env c8 --reporter=lcov --reporter=text-summary --report-dir=test/reports/unit mocha --loader=esmock test/unit",
+    "test:funccov": "cross-env c8 --reporter=lcov --reporter=text-summary --report-dir=test/reports/func mocha --loader=esmock test/func",
+    "test:covrun": "c8 --reporter=lcov --reporter=text-summary --report-dir=test/reports/$FCI_TEST_TYPE mocha --loader=esmock test/$FCI_TEST_TYPE",
+    "test:run": "mocha --loader=esmock test/$FCI_TEST_TYPE",
+    "cov:unit": "cross-env FCI_TEST_TYPE=unit npm run cov:run",
+    "cov:func": "cross-env FCI_TEST_TYPE=func npm run cov:run",
+    "cov:run": "open test/reports/$FCI_TEST_TYPE/lcov-report/index.html"
   },
   "mocha": {
     "recursive": true,
@@ -38,12 +50,14 @@
     "find-up": "^6.2.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
-    "pino": "^7.6.3"
+    "pino": "^7.6.3",
+    "update-notifier": "^5.1.0"
   },
   "devDependencies": {
     "c8": "^7.11.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
+    "cross-env": "^7.0.3",
     "dirty-chai": "^2.0.1",
     "docdash": "^1.2.0",
     "eslint": "^8.7.0",
@@ -53,16 +67,17 @@
     "husky": "^7.0.4",
     "jsdoc": "^3.6.10",
     "mocha": "^9.1.4",
-    "sinon": "^12.0.1"
+    "sinon": "^12.0.1",
+    "sinon-chai": "^3.7.0"
   },
   "forge": {
-    "comment": "This is only used for functional tests",
+    "comment": "This is only used for functional tests - logLevel should be reset to 'fatal'",
     "logLevel": "fatal",
-    "migrationStatePlugin": "tests/mocks/MockMigrationStatePlugin.js",
-    "migrationsDirectory": "tests/mocks/migrations",
+    "migrationStatePlugin": "test/mocks/MockMigrationStatePlugin.js",
+    "migrationsDirectory": "test/mocks/migrations",
     "nodeModule": {
       "migrationStatePlugin": "mock-forge-plugin",
-      "migrationsDirectory": "tests/mocks/migrations"
+      "migrationsDirectory": "test/mocks/migrations"
     }
   }
 }
