@@ -3,7 +3,7 @@ import '../bootstrap.js';
 import actionTypes from '../../../lib/actionTypes.js';
 
 describe( 'Process Actions', function() {
-  let lib, migrationState, migrations, action, log;
+  let lib, migrationState, migrations, action, log, getPlugin;
 
 
   beforeEach( async function() {
@@ -22,15 +22,16 @@ describe( 'Process Actions', function() {
     };
 
     log = { debug: sinon.stub(), info: sinon.stub() };
+    getPlugin = sinon.stub().returns( 'plugzzzz' );
 
     lib = await esmock( '../../../lib/processActions.js', {
       '../../../lib/config': { config: { logLevel: 'probablySomethingReasonable' }},
       '../../../lib/logger': { log },
+      '../../../lib/model/plugin': getPlugin,
       '../../../lib/model/migrationState': migrationState,
       '../../../lib/model/migrations': migrations
     });
   });
-
 
   describe( 'record migrations', function() {
     it( 'should work', async function() {
@@ -43,7 +44,9 @@ describe( 'Process Actions', function() {
     it( 'should load and run a migration task', async function() {
       await lib.processTasks([{ filename: 'a.js' }, { filename: 'b.js' }, { filename: 'c.js' }], actionTypes.migrate );
       expect( action.callCount ).to.equal( 3 );
-      expect( action.args[0][0]).to.deep.equal({ logLevel: 'probablySomethingReasonable' });
+      expect( action.args[0][0]).to.have.property( 'config' );
+      expect( action.args[0][0]).to.have.property( 'logger' );
+      expect( action.args[0][0]).to.have.property( 'plugin' );
       expect( migrationState.recordMigration.callCount ).to.equal( 3 );
       expect( migrationState.removeMigration.callCount ).to.equal( 0 );
     });
@@ -51,7 +54,9 @@ describe( 'Process Actions', function() {
     it( 'should load and run a rollback task', async function() {
       await lib.processTasks([{ filename: 'a.js' }], actionTypes.rollback );
       expect( action.callCount ).to.equal( 1 );
-      expect( action.args[0][0]).to.deep.equal({ logLevel: 'probablySomethingReasonable' });
+      expect( action.args[0][0]).to.have.property( 'config' );
+      expect( action.args[0][0]).to.have.property( 'logger' );
+      expect( action.args[0][0]).to.have.property( 'plugin' );
       expect( migrationState.recordMigration.callCount ).to.equal( 0 );
       expect( migrationState.removeMigration.callCount ).to.equal( 1 );
     });
@@ -59,7 +64,9 @@ describe( 'Process Actions', function() {
     it( 'should handle the unknown', async function() {
       await lib.processTasks([{ filename: 'a.js' }], 0 );
       expect( action.callCount ).to.equal( 1 );
-      expect( action.args[0][0]).to.deep.equal({ logLevel: 'probablySomethingReasonable' });
+      expect( action.args[0][0]).to.have.property( 'config' );
+      expect( action.args[0][0]).to.have.property( 'logger' );
+      expect( action.args[0][0]).to.have.property( 'plugin' );
       expect( migrationState.recordMigration.callCount ).to.equal( 0 );
       expect( migrationState.removeMigration.callCount ).to.equal( 0 );
       expect( log.info.callCount ).to.equal( 2 );
