@@ -13,20 +13,21 @@ const pkg = require( '../package.json' );
 updateNotifier({ pkg }).notify();
 
 const argv = min( process.argv.slice( 2 ));
+
 try {
   await cli( argv );
   process.exit( 0 );
 } catch ( error ) {
-  console.fatal( error );
+  console.error( error );
   process.exit( 255 );
 }
 
 process.on( 'uncaughtException', ( error ) => {
-  console.fatal( error );
+  console.error( error );
   process.exit( 255 );
 });
 
 process.on( 'unhandledRejection', ( reason ) => {
-  console.fatal( reason );
+  console.error( reason );
   process.exit( 255 );
 });
