@@ -25,7 +25,8 @@ const main = async( argv ) => {
   await supportedCommands[command]({ version }).then(() => {
     log.info( `${_.upperFirst( command )} command completed successfully.` );
   }).catch(( error ) => {
-    log.error({ error: error.toString() }, 'There has been an issue during the migration' );
+    log.error({ error: error.toString(), obj: error }, 'There has been an issue during the migration' );
+    throw error;
   });
 };
 

@@ -13,9 +13,13 @@ const pkg = require( '../package.json' );
 updateNotifier({ pkg }).notify();
 
 const argv = min( process.argv.slice( 2 ));
-
-await cli( argv );
-process.exit( 0 );
+try {
+  await cli( argv );
+  process.exit( 0 );
+} catch ( error ) {
+  console.fatal( error );
+  process.exit( 255 );
+}
 
 process.on( 'uncaughtException', ( error ) => {
   console.fatal( error );
