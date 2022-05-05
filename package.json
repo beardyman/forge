@@ -40,7 +40,7 @@
     "recursive": true,
     "extension": ".spec.js"
   },
-  "keywords": [],
+  "keywords": ["database migrations", "infrastructure as code"],
   "author": "Jordan Nornhold",
   "license": "ISC",
   "dependencies": {
