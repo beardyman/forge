@@ -1,6 +1,6 @@
 {
   "name": "@beardyman/forge",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A utility for deploying migrations for changing system state.",
   "private": false,
   "publishConfig": {
@@ -40,7 +40,10 @@
     "recursive": true,
     "extension": ".spec.js"
   },
-  "keywords": ["database migrations", "infrastructure as code"],
+  "keywords": [
+    "database migrations",
+    "infrastructure as code"
+  ],
   "author": "Jordan Nornhold",
   "license": "ISC",
   "dependencies": {
